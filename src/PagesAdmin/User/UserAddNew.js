@@ -37,12 +37,14 @@ const openNotification = (desc) => {
 
 export const UserAddNew = () => {
   const onFinishSign = (values) => {
-    values.gender == "nam" ? (values.gender = true) : (values.gender = false);
+    values.gender == "Male"
+      ? (values.gender = "Male")
+      : (values.gender = "Female");
 
     userServ
       .postSign(values)
       .then((res) => {
-        console.log(res.data.content);
+        console.log(res.data);
         message.success("Đăng kí thành công");
         openNotification(
           `Email : ${values.email} / Password: ${values.password}`
@@ -94,7 +96,7 @@ export const UserAddNew = () => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item
+        {/* <Form.Item
           name="confirm"
           label="Confirm"
           dependencies={["password"]}
@@ -116,7 +118,7 @@ export const UserAddNew = () => {
           ]}
         >
           <Input.Password />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item
           name="birthday"
           label="Ngày sinh"
@@ -128,7 +130,7 @@ export const UserAddNew = () => {
             },
           ]}
         >
-          <Input type={"date"} />
+          <Input type={Date} />
         </Form.Item>
         <Form.Item
           rules={[
@@ -146,12 +148,12 @@ export const UserAddNew = () => {
             }}
             options={[
               {
-                value: "nam",
-                label: "Nam",
+                value: "Male",
+                label: "Male",
               },
               {
-                value: "nu",
-                label: "Nữ",
+                value: "Female",
+                label: "Female",
               },
             ]}
           />
@@ -188,7 +190,7 @@ export const UserAddNew = () => {
           />
         </Form.Item>
 
-        <Form.Item
+        {/* <Form.Item
           name="agreement"
           valuePropName="checked"
           rules={[
@@ -204,7 +206,7 @@ export const UserAddNew = () => {
           <Checkbox>
             Tôi đã đọc và <a href="">chấp nhận các điều khoản</a>
           </Checkbox>
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
             Đăng Kí

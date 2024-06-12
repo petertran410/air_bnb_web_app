@@ -9,13 +9,9 @@ export const UserEdit = () => {
   useEffect(() => {
     userServ.getInfo(id).then((res) => {
       console.log(res);
-      let { gender } = res.data.content;
-      if (gender) {
-        gender = "nam";
-      } else {
-        gender = "nu";
-      }
-      let newData = { ...res.data.content, gender: gender };
+      let { gender } = res.data;
+      gender = gender ? "Male" : "Female";
+      let newData = { ...res.data, gender: gender };
       form.setFieldsValue({
         ...newData,
       });
@@ -23,11 +19,14 @@ export const UserEdit = () => {
   }, [id]);
 
   const onFinishSign = (values) => {
-    values.gender == "nam" ? (values.gender = true) : (values.gender = false);
+    values.gender = String(values.gender);
+    console.log("Form values before submission:", values);
+
+    values.gender = values.gender === "Male" ? "Male" : "Female";
     userServ
       .editUser(id, values)
       .then((res) => {
-        console.log(res.data.content);
+        console.log(res.data);
         message.success("Cập nhật thành công");
         setTimeout(() => {
           window.location.reload();
@@ -75,12 +74,12 @@ export const UserEdit = () => {
             },
           ]}
         >
-          <Input type={"date"} />
+          <Input type={Date} />
         </Form.Item>
         <Form.Item
           rules={[
             {
-              required: true,
+              required: false,
               message: "Không bỏ trống",
             },
           ]}
@@ -93,12 +92,12 @@ export const UserEdit = () => {
             }}
             options={[
               {
-                value: "nam",
-                label: "Nam",
+                value: "Male",
+                label: "Male",
               },
               {
-                value: "nu",
-                label: "Nữ",
+                value: "Female",
+                label: "Female",
               },
             ]}
           />
@@ -119,12 +118,12 @@ export const UserEdit = () => {
             }}
             options={[
               {
-                value: "ADMIN",
-                label: "ADMIN",
+                value: "Admin",
+                label: "Admin",
               },
               {
-                value: "USER",
-                label: "USER",
+                value: "Guest",
+                label: "Guest",
               },
             ]}
           />
