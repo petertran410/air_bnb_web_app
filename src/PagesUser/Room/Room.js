@@ -28,7 +28,7 @@ export default function Room() {
         let newImage = dataUrlImage.slice(index_img, index_img + 6);
         let star = randomNumber(50, 40) / 10;
         let newData = {
-          ...res.data.content,
+          ...res.data.data,
           newImage,
           star,
           name,
@@ -44,8 +44,9 @@ export default function Room() {
     roomServ
       .getStatusRoom()
       .then((res) => {
-        let data = res.data.content.filter((item) => {
-          return item.maPhong == idRoom;
+        let data = res.data.data.filter((item) => {
+          console.log(item);
+          return item.id == idRoom;
         });
         setStatus({
           ...isStatus,
@@ -93,15 +94,16 @@ export default function Room() {
     roomServ
       .getDataComment()
       .then((res) => {
-        let dataFilter = res.data.content.filter(
-          (item) => item.maPhong == idRoom
-        )
+        console.log(res.data.data);
+        let dataFilter = res.data.data.filter(
+          (item) => item.id == idRoom
+        );
         let totalComment = dataFilter.length;
         let star = 0;
         if (totalComment) {
           star =
             dataFilter.reduce((total, item) => {
-              return item.saoBinhLuan + total;
+              return item.rated + total;
             }, 0) / totalComment;
         }
         let newDataComment = dataFilter.map(
@@ -111,7 +113,8 @@ export default function Room() {
               avatar: `https://i.pravatar.cc/60?img=${i}`,
             })
         );
-        setComment({...dataComment,
+        setComment({
+          ...dataComment,
           content: newDataComment,
           average: Math.round(star),
         });

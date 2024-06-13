@@ -23,12 +23,12 @@ export default function UserInfo() {
   const [allRoom, setAllRoom] = useState(null);
   const [dataUser, setDataUser] = useState(null);
   let { user: userInfo } = useSelector((state) => state.userReducer);
-  let get_user_ID = userInfo.user.id;
+  let get_user_ID = userInfo.id;
   useEffect(() => {
     roomServ
       .getDataBooking(get_user_ID)
       .then((res) => {
-        setDataBooking(res.data.content);
+        setDataBooking(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -39,7 +39,7 @@ export default function UserInfo() {
     roomServ
       .getAllDataRoom()
       .then((res) => {
-        setAllRoom(res.data.content);
+        setAllRoom(res.data.data);
         dispatch(setLoadingOff());
       })
       .catch((err) => {

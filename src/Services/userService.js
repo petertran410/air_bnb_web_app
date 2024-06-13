@@ -1,7 +1,7 @@
 import { https } from "./configURL";
 
 export const userServ = {
-  postLogin: (data) => https.post("/api/auth/signin", data),
+  postLogin: (data) => https.post("/api/auth/sign-in", data),
   postSign: (data) => https.post("/api/auth/sign-up", data),
   postRegister: (data) => {
     return https.post("/api/auth/signup", data);

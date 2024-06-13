@@ -25,10 +25,11 @@ export default function Detail() {
     roomServ
       .getDataBook(id)
       .then((res) => {
-        let newData = res.data.content.map((item) => {
+        let newData = res.data.data.map((item) => {
+          console.log(item);
           let index = randomNumber(dataUrlImage.length);
           let newHinhAnh = dataUrlImage.slice(index, index + 4);
-          newHinhAnh.unshift({ urlImage: item.hinhAnh });
+          newHinhAnh.unshift({ urlImage: item.photo });
           let newItem = { ...item, hinhAnh: newHinhAnh };
           return newItem;
         });
@@ -44,17 +45,18 @@ export default function Detail() {
     positionSer
       .getCurrentPosition(id)
       .then((res) => {
-        let { tinhThanh } = res.data.content;
+        let { location } = res.data.data;
         let index = locationVN.findIndex(
-          (item) => item.admin_name === tinhThanh || item.city === tinhThanh
+          (item) => item.admin_name === location || item.city === location
         );
         setCurrentPosition({
-          ...res.data.content,
+          ...res.data.data,
           center: {
             lat: +locationVN[index]?.lat,
             lng: +locationVN[index]?.lng,
           },
         });
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -72,16 +74,9 @@ export default function Detail() {
     ));
   let renderContent = () =>
     dataBook?.map((item, i) => {
-      let {
-        id,
-        hinhAnh,
-        tenPhong,
-        khach,
-        phongNgu,
-        phongTam,
-        giuong,
-        giaTien,
-      } = item;
+      let { id, hinhAnh, name, guests, bedrooms, bathrooms, beds, price } =
+        item;
+      console.log(item);
       return (
         <section key={i} className="shadow-lg rounded  duration-300">
           <Carousel effect="fade">{renderImage(hinhAnh)}</Carousel>
@@ -89,16 +84,16 @@ export default function Detail() {
             {state && (
               <p className="font-medium">
                 Khuyến mãi 50% nhân dịp hè đến {""}
-                <span className="line-through text-xl">{giaTien * 2}$</span>
+                <span className="line-through text-xl">{price * 2}$</span>
               </p>
             )}
-            <h2 className=" text-lg font-bold">{tenPhong}</h2>
+            <h2 className=" text-lg font-bold">{name}</h2>
             <div className="pt-4 pb-2">
-              <span className="span-gray">{khach} khách</span>
-              <span className="span-gray">{phongNgu} phòng ngủ</span>
-              <span className="span-gray">{giuong} giường</span>
-              <span className="span-gray">{phongTam} phòng tắm</span>
-              <span className="span-gray bg-yellow-300  ">{giaTien}$/đêm</span>
+              <span className="span-gray">{guests} khách</span>
+              <span className="span-gray">{bedrooms} phòng ngủ</span>
+              <span className="span-gray">{beds} giường</span>
+              <span className="span-gray">{bathrooms} phòng tắm</span>
+              <span className="span-gray bg-yellow-300  ">{price}$/đêm</span>
               <Link
                 to={`/room/${id}/${currentPosition.center?.lat}/${currentPosition.center?.lng}`}
                 className="span-gray text-gray-50  bg-red-500"
@@ -117,11 +112,11 @@ export default function Detail() {
       <h1 className="text-3xl font-bold">
         Chỗ ở tại khu vực{" "}
         {currentPosition.center &&
-          currentPosition.tenViTri +
+          currentPosition.address +
             `,` +
-            currentPosition.tinhThanh +
+            currentPosition.city +
             `,` +
-            currentPosition.quocGia}
+            currentPosition.country}
       </h1>
       {dataBook.length == 0 ? (
         <section className="">

@@ -23,22 +23,25 @@ export default function ServicesRoom({
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(false);
   let {
-    tenPhong,
-    hinhAnh,
-    khach,
-    phongNgu,
-    phongTam,
-    moTa,
+    photo,
+    guests,
+    bedrooms,
+    bathrooms,
+    description,
     name,
-    giaTien,
+    price,
     id,
     positionRoom,
+    rated,
   } = dataSer;
+  console.log(dataSer);
+  console.log(averageStar);
+  console.log(totalPeople);
   return (
     <>
       {" "}
       <div className="">
-        <span className="text-2xl font-medium mx-1">{tenPhong}</span>
+        <span className="text-2xl font-medium mx-1">{name}</span>
         <div className="my-2">
           {" "}
           {totalPeople ? (
@@ -46,7 +49,7 @@ export default function ServicesRoom({
               {" "}
               <section className="flex text-lg">
                 <StarIcon />
-                <b> {averageStar}</b>/
+                <b> {rated}</b>/
                 <span className="mx-1">{totalPeople} đánh giá</span>
                 <BookMark id={id} />
               </section>
@@ -60,7 +63,7 @@ export default function ServicesRoom({
           preview={{
             visible: false,
           }}
-          src={hinhAnh}
+          src={photo}
           onClick={() => setVisible(true)}
         />
         <div
@@ -114,7 +117,7 @@ export default function ServicesRoom({
                 </>
               )}
               <br />
-              {khach} khách - {phongNgu} phòng ngủ - {phongTam} phòng tắm
+              {guests} khách - {bedrooms} phòng ngủ - {bathrooms} phòng tắm
             </p>
             <div className="flex">
               {" "}
@@ -162,7 +165,7 @@ export default function ServicesRoom({
             </section>
           </div>
           <hr />
-          <p className="py-4 font-medium">{moTa}</p>
+          <p className="py-4 font-medium">{description}</p>
           <hr />
           <div className="pt-5">
             <h2 className="text-lg font-semibold">Tiện Nghi</h2>
@@ -171,7 +174,7 @@ export default function ServicesRoom({
             </div>
           </div>
         </section>
-        <BookRoom isStatus={isStatus} khach={khach} id={id} giaTien={giaTien} />
+        <BookRoom isStatus={isStatus} khach={guests} id={id} giaTien={price} />
       </div>
       <hr />
       {totalPeople ? (
