@@ -12,10 +12,8 @@ const initialization = {
   rated: 4,
 };
 export default function AddComment({ idRoom }) {
-  console.log(idRoom);
   let { user: userInfo } = useSelector((state) => state.userReducer);
   const [getData, setGetData] = useState(initialization);
-  console.log(getData);
   const onChangeRate = (e) => {
     setGetData({ ...getData, rated: e });
   };

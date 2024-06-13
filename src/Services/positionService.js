@@ -9,3 +9,12 @@ export const positionSer = {
   editPosition: (id, data) => https.put(`/api/locations/${id}`, data),
   getDataFromId: (id) => https.get(`/api/locations/${id}`),
 };
+
+positionSer
+  .getPosition()
+  .then((result) => {
+    console.log("Danh sách", result);
+  })
+  .catch((err) => {
+    console.log(err);
+  });

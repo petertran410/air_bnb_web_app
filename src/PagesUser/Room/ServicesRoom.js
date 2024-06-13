@@ -34,9 +34,6 @@ export default function ServicesRoom({
     positionRoom,
     rated,
   } = dataSer;
-  console.log(dataSer);
-  console.log(averageStar);
-  console.log(totalPeople);
   return (
     <>
       {" "}

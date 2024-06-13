@@ -5,7 +5,6 @@ let initialState = {
   user: localServ.user.get(),
   dataListUser: [],
 };
-
 export const userReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case SET_USER: {
