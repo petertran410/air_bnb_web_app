@@ -1,70 +1,194 @@
-# Getting Started with Create React App
+![image](https://scontent.fsgn20-1.fna.fbcdn.net/v/t1.6435-9/89227924_2886016274945769_1382393519808708608_n.png?_nc_cat=104&ccb=1-7&_nc_sid=e3f864&_nc_ohc=ZfnQXr4v5w4AX9Ww-GK&_nc_ht=scontent.fsgn20-1.fna&oh=00_AfCm2n4SLp2oYFEUjc_NswbUSdIyy2gZbyBum3D0qLIltw&oe=649AF0DD)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Tetris Game
 
-## Available Scripts
+Click here and enjoy the game --> <a href="https://tetris-game-zeta.vercel.app/" target="_blank">Tetris Game</a>
 
-In the project directory, you can run:
+## Data Structures and Algorithms Project (Semester 2_2022-2023)
 
-### `npm start`
+[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
+![GitHub top language](https://img.shields.io/github/languages/top/naulkun7/Tetris-Game)
+![GitHub branch checks state](https://img.shields.io/github/checks-status/naulkun7/Tetris-Game/main)
+![GitHub last commit](https://img.shields.io/github/last-commit/naulkun7/Tetris-Game)
+![Vercel](https://vercelbadge.vercel.app/api/naulkun7/Tetris-Game)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Table of contents :round_pushpin:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. [Introduction](#introduction)
+2. [Feature](#features)
+3. [Challenges](#challenges)
+4. [UML Class Diagram](#uml)
+5. [Demo](#demo)
+6. [PowerPoint](#powerPoint)
+7. [Installation](#installation)
+8. [References](#references)
 
-### `npm test`
+## Introduction <a name="introduction"></a> :smile:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Group: 9 :star_struck:
 
-### `npm run build`
+### Our team member
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Index | Name                    |     ID      |               Email                | Github account |
+| :---- | :---------------------- | :---------: | :--------------------------------: | :------------- |
+| 1     | Trần Quang Trí          | ITITIU20325 |     tranwangtristudy@gmail.com     | WangTris       |
+| 2     | Nguyễn Hoàng Luân       | ITITIU20012 |     luannguyenn.2k2@gmail.com      | naulkun7       |
+| 3     | Nguyễn Hoàng Thiên Phúc | ITITIU20279 | nguyenhoangthienphuc1802@gmail.com | thienphuc1802  |
+| 4     | Trần Ngọc Nhân          | ITITIU20264 |     nhantran4102002@gmail.com      | petertran410   |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Tasks and Contribution
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| Index | Role   | Person In Charge | Contribution |
+| :---- | :----- | :--------------: | :----------: |
+| 1     | Leader |    Hoàng Luân    |     25%      |
+| 2     | Member |    Quang Trí     |     25%      |
+| 3     | Member |    Thiên Phúc    |     25%      |
+| 4     | Member |    Ngọc Nhân     |     25%      |
 
-### `npm run eject`
+| Name        | Tasks                                                                          |
+| :---------- | :----------------------------------------------------------------------------- |
+| Hoàng Luân  | Overall Framework, Ghostpiece func, Mobile, Set Difficulty func, Miscellaneous |
+| Quang Trí   | Readme, Holdpiece func, Sound Effect, Miscellaneous                            |
+| Thiên Phúc  | Score Board, Class Diagram, Algorithm (Sort), Miscellaneous                    |
+| Ngọc Nhân   | Undo func, Class Diagram, Miscellaneous                                        |
+| All members | Report, PowerPoint, Front-end                                                  |
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Environment :computer:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Language:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![image](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![image](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![image](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Platform:
 
-## Learn More
+![image](https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
+![image](https://img.shields.io/badge/WebStorm-000000?style=for-the-badge&logo=WebStorm&logoColor=white)  
+![image](http://therealsujitk-vercel-badge.vercel.app/?app=therealsujitk-vercel-badge&style=for-the-badge&logo=false)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Design Pattern:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- MVC (Model-View-Controller)
+- Template Method
 
-### Code Splitting
+## Features <a name="features"></a> :star2:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Main Feature:**
 
-### Analyzing the Bundle Size
+- Play, Restart, Pause
+- Generate piece
+- Sound
+- Play field
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**Extra feature:**
 
-### Making a Progressive Web App
+- Undo state
+- Hold piece
+- Next piece
+- Ghost piece
+- Score board
+- Game Speed, Level, Set Difficulty
+- UI (Responsive)
+- Mobile Support (Ipad only)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**Future feature:**
 
-### Advanced Configuration
+- User Score Database
+- Change color or theme by user
+- User ranking
+- Optimize for mobile user
+- More Game Animation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Challenges <a name="challenges"></a> ✴️
 
-### Deployment
+- Most of the team members are not familiar with Web environment
+- Problems with the IDE, Canvas
+- Problems when applying Data Structures and Algorithms in project
+- And some other smaller issues...
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### What we have learned :pencil:
 
-### `npm run build` fails to minify
+Soft skills: works in GitHub, Google docs, Google slides,...  
+Main skills: Debugs, Team work  
+Knowledge: HTML, CSS, JavaScript, Data Structures, Algorithms, UI design, Thesis report, Git and Github Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## UML Class Diagram <a name="uml"></a> 📄
+
+![image](./screenshot/Class_Diagram_Tetris.png)
+
+## Demo <a name="demo"></a> 🤖
+
+#### Start Screen
+
+![image](./screenshot/game/startscreen.png)
+
+#### Set Difficulty
+
+![image](./screenshot/game/difficult.png)
+
+#### Play Screen
+
+![image](./screenshot/game/playing.png)
+![image](./screenshot/game/playing2.png)
+
+#### Pause Screen
+
+![image](./screenshot/game/pause.png)
+
+#### End Screen
+
+![image](./screenshot/game/gameover.png)
+
+#### Mobile
+
+![image](./screenshot/game/mobile.jpg)
+
+### How to play 🎮
+
+#### Desktop 🖥️
+
+- Use the ⬅️|➡️ to move left and right
+- Use the ⬆️ to rotate 90° clockwise
+- Use Space to drop down
+- Use C to hold the Piece
+- Use U to undo
+- Use R to restart
+
+#### Mobile 📱
+
+- Swipe Left and Right to move
+- Swipe up or tap to rotate
+- Swipe down to drop piece
+- Press ⏸️ button to interact
+- Press 🎁 button to hold
+- Press 🔄 button to undo
+- Press 🔇 to toggle mute
+
+## PowerPoint and Report <a name="powerPoint"></a> 📖
+
+### PowerPoint
+
+Support: Google slides
+![image](./screenshot/Tetris_ppt.jpg)
+
+Direct: [Link](https://docs.google.com/presentation/d/1NSvAn6voLTWPU3bcdAyV4bVFJXAI_HLM9rIiVeL4j0k/edit?usp=sharing)
+
+### Report
+
+Support: Google docs
+
+Direct: [Link](https://docs.google.com/document/d/1TFwiAUaH60dtllLl4o73U8S-MblfCmTzYT6-PXLCqNY/edit?usp=sharing)
+
+## Installation <a name="installation"></a>
+
+1. Step 1: Access to https://github.com/naulkun7/Tetris-Game
+
+- Download and unzip the file
+- Clone following repository to your local [Tetris-Game_repository](https://github.com/naulkun7/Tetris-Game.git)
+  - VSCode: Copy the repository URL --> Open VSCode --> Ctrl + Shift + P --> Type "gitcl" --> Choose "Git Clone" and paste the URL in
+  - WebStorm: Copy the repository URL --> Open WebStorm --> Choose "Get from VCS" --> Paste the URL on your clipboard to "URL" field --> Press Enter or Clone
+
+2. Step 2: Choose index.html file in source code --> Right click and click "Open with Live Server"
+3. Step 3: Run or modify it as you want
+
