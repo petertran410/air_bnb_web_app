@@ -1,16 +1,10 @@
-![image](https://scontent.fsgn20-1.fna.fbcdn.net/v/t1.6435-9/89227924_2886016274945769_1382393519808708608_n.png?_nc_cat=104&ccb=1-7&_nc_sid=e3f864&_nc_ohc=ZfnQXr4v5w4AX9Ww-GK&_nc_ht=scontent.fsgn20-1.fna&oh=00_AfCm2n4SLp2oYFEUjc_NswbUSdIyy2gZbyBum3D0qLIltw&oe=649AF0DD)
+![image](https://github.com/petertran410/air_bnb_web_app/blob/main/public/imgs/airbnb.png?raw=true)
 
-# Tetris Game
+# Air Bnb Project
 
-Click here and enjoy the game --> <a href="https://tetris-game-zeta.vercel.app/" target="_blank">Tetris Game</a>
+Click here and enjoy the web --> <a href="https://tetris-game-zeta.vercel.app/" target="_blank">Air Bnb</a>
 
-## Data Structures and Algorithms Project (Semester 2_2022-2023)
-
-[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
-![GitHub top language](https://img.shields.io/github/languages/top/naulkun7/Tetris-Game)
-![GitHub branch checks state](https://img.shields.io/github/checks-status/naulkun7/Tetris-Game/main)
-![GitHub last commit](https://img.shields.io/github/last-commit/naulkun7/Tetris-Game)
-![Vercel](https://vercelbadge.vercel.app/api/naulkun7/Tetris-Game)
+## Web Application Development (Semester 2_2023-2024)
 
 # Table of contents :round_pushpin:
 
