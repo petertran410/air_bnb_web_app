@@ -15,12 +15,19 @@ export const AddBook = () => {
       message.error("Kiểm tra lại thông tin còn thiếu");
       return;
     }
-    let newData = { ...values, ngayDen: date[0], ngayDi: date[1] };
+    let newData = {
+      ...values,
+      id: parseInt(values.id, 10),
+      room_id: parseInt(values.room_id, 10),
+      guests: parseInt(values.guests, 10),
+      arrival: date[0] + "T00:00:00.000Z",
+      departure: date[1] + "T00:00:00.000Z",
+    };
     bookSer
       .postBooking(newData)
       .then((res) => {
-        console.log(res.data.content);
-        dispatch(setDataBooked(res.data.content));
+        console.log(res.data.data);
+        dispatch(setDataBooked(res.data.data));
         message.success("Thêm mới thành công");
         setTimeout(() => {
           navigate("/admin/booked");
@@ -45,7 +52,7 @@ export const AddBook = () => {
         scrollToFirstError
       >
         <Form.Item
-          name="maPhong"
+          name="room_id"
           label="Mã phòng"
           rules={[
             {
@@ -58,7 +65,7 @@ export const AddBook = () => {
           <Input type={"number"} />
         </Form.Item>
         <Form.Item
-          name="maNguoiDung"
+          name="id"
           label="Mã người dùng"
           rules={[
             {
@@ -71,7 +78,7 @@ export const AddBook = () => {
           <Input type={"number"} />
         </Form.Item>
         <Form.Item
-          name="soKhach"
+          name="guests"
           label="Số khách"
           rules={[
             {

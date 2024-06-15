@@ -27,7 +27,6 @@ export default function BookRoom() {
       .getStatusRoom()
       .then((result) => {
         setDataBook(result.data.data);
-        console.log(result.data.data);
       })
       .catch((err) => {
         console.log(err);

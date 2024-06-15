@@ -1,17 +1,11 @@
-import {
-  Button,
-  Checkbox,
-  Form,
-  Input,
-  message,
-  Select,
-  notification,
-} from "antd";
-import React from "react";
+import { Button, Form, Input, message, Select, notification } from "antd";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { userServ } from "../../Services/userService";
 import { formItemLayout, tailFormItemLayout } from "../../Utilities/FormLayout";
+import { setDataListUser } from "../../Redux/actions/actionUser";
+
 const openNotification = (desc) => {
   const key = `open${Date.now()}`;
   const btn = (
@@ -20,7 +14,6 @@ const openNotification = (desc) => {
       size="small"
       onClick={() => {
         notification.close(key);
-        window.location.reload();
       }}
     >
       Close
@@ -36,19 +29,35 @@ const openNotification = (desc) => {
 };
 
 export const UserAddNew = () => {
+  let dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [date, setDate] = useState(null);
+
   const onFinishSign = (values) => {
-    values.gender == "Male"
-      ? (values.gender = "Male")
-      : (values.gender = "Female");
+    values.gender = values.gender === "Male" ? "Male" : "Female";
+    console.log(date);
+
+    if (!date) {
+      message.error("Kiểm tra lại thông tin còn thiếu");
+      return;
+    }
+
+    let newData = {
+      ...values,
+      birthday: date + "T00:00:00.000Z",
+    };
 
     userServ
-      .postSign(values)
+      .postSign(newData)
       .then((res) => {
-        console.log(res.data);
+        dispatch(setDataListUser(res.data.data));
         message.success("Đăng kí thành công");
         openNotification(
           `Email : ${values.email} / Password: ${values.password}`
         );
+        setTimeout(() => {
+          navigate("/admin/user");
+        }, 1500);
       })
       .catch((err) => {
         message.error("Đăng kí thất bại, email đã tồn tại hoặc lỗi kết nối");
@@ -56,21 +65,8 @@ export const UserAddNew = () => {
       });
   };
 
-  const validateBirthday = (rule, value, callback) => {
-    // Kiểm tra nếu giá trị rỗng thì bỏ qua
-    if (!value) {
-      callback("Vui lòng nhập ngày sinh");
-      return;
-    }
-
-    // Kiểm tra định dạng YYYY-MM-DDTHH:mm:ss.sssZ
-    if (
-      !/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.(\d{3})Z$/.test(value)
-    ) {
-      callback("Ngày sinh không đúng định dạng YYYY-MM-DDTHH:mm:ss.sssZ");
-    } else {
-      callback();
-    }
+  const onDateChange = (e) => {
+    setDate(e.target.value);
   };
 
   const renderSign = () => {
@@ -122,13 +118,11 @@ export const UserAddNew = () => {
               message: "Không bỏ trống",
               whitespace: true,
             },
-            {
-              validator: validateBirthday,
-            },
           ]}
         >
-          <Input placeholder="2002-04-10T00:00:00.000Z" />
+          <Input type="date" onChange={onDateChange} />
         </Form.Item>
+
         <Form.Item
           rules={[
             {
@@ -180,30 +174,13 @@ export const UserAddNew = () => {
           ]}
         >
           <Input
-            type={"number"}
+            type="number"
             style={{
               width: "100%",
             }}
           />
         </Form.Item>
 
-        {/* <Form.Item
-          name="agreement"
-          valuePropName="checked"
-          rules={[
-            {
-              validator: (_, value) =>
-                valueF
-                  ? Promise.resolve()
-                  : Promise.reject(new Error("Xin chấp nhận điều khoản")),
-            },
-          ]}
-          {...tailFormItemLayout}
-        >
-          <Checkbox>
-            Tôi đã đọc và <a href="">chấp nhận các điều khoản</a>
-          </Checkbox>
-        </Form.Item> */}
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
             Đăng Kí
@@ -212,6 +189,7 @@ export const UserAddNew = () => {
       </Form>
     );
   };
+
   const [form] = Form.useForm();
   return <>{renderSign()}</>;
 };

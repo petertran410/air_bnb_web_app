@@ -1,7 +1,6 @@
 import { https } from "./configURL";
 export const bookSer = {
-  getDataBook: (id) =>
-    https.get(`/api/phong-thue/lay-phong-theo-vi-tri?maViTri=${id}`),
+  getDataBook: (id) => https.get(`/api/rooms/rooms-location?location_id=${id}`),
   postBooking: (data) => https.post("/api/reservations/new", data),
   getDataBooking: (id) =>
     https.get(`/api/reservations/reservation-by-id/${id}`),
@@ -9,5 +8,5 @@ export const bookSer = {
   getData: () => https.get("/api/reservations"),
   deleteBooking: (id) => https.delete(`/api/reservations/delete/${id}`),
   getBookedFromId: (id) => https.get(`/api/reservations/${id}`),
-  editBooked: (id, data) => https.put(`/api/dat-phong/${id}`, data),
+  editBooked: (id, data) => https.put(`/api/reservations/update/${id}`, data),
 };

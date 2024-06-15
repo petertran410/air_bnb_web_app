@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { message, Popconfirm, Table, Tag } from "antd";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -7,6 +7,17 @@ import { setDataBooked } from "../../Redux/actions/actionsBooked";
 export default function BookTable({ dataListBook }) {
   const dispatch = useDispatch();
   let navigate = useNavigate();
+
+  const newDataList = dataListBook.map((item) => {
+    const arrivalDateString = item.arrival.split("T")[0];
+    const departureDateString = item.departure.split("T")[0];
+    let newData = {
+      ...item,
+      arrival: arrivalDateString,
+      departure: departureDateString,
+    };
+    return newData;
+  });
 
   const columns = [
     {
@@ -88,7 +99,7 @@ export default function BookTable({ dataListBook }) {
   return (
     <Table
       columns={columns}
-      dataSource={dataListBook}
+      dataSource={newDataList}
       rowKey={(record) => record.id}
     />
   );

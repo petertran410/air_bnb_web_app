@@ -22,6 +22,7 @@ export default function UserInfo() {
   const [dataBooking, setDataBooking] = useState([]);
   const [allRoom, setAllRoom] = useState([]);
   const [dataUser, setDataUser] = useState([]);
+  console.log(dataBooking);
   let { user: userInfo } = useSelector((state) => state.userReducer);
   let get_user_ID = userInfo.user.data.id;
   useEffect(() => {
@@ -133,23 +134,24 @@ export default function UserInfo() {
   };
   const renderPersonal = () => {
     let { name, email, phone, birthday, gender, role } = dataUser;
+
     return (
       <div className="flex space-x-3">
         <section>
           <p>
-            Tên <b> {name} </b>
+            Tên: <b> {name} </b>
           </p>
           <p>
-            Email <b>{email}</b>
+            Email: <b>{email}</b>
           </p>
           <p>
-            Số điện thoại <b>{phone}</b>
+            Số điện thoại: <b>{phone}</b>
           </p>
           <p>
-            Ngày sinh <b>{birthday}</b>
+            Ngày sinh: <b>{birthday}</b>
           </p>
           <p>
-            Giới tính <b>{gender ? "Male" : "Female"}</b>
+            Giới tính: <b>{gender ? "Male" : "Female"}</b>
           </p>
           <p>
             Role: <b>{role === "Guest" ? "Khách hàng" : "Admin"}</b>

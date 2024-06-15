@@ -1,37 +1,49 @@
 import { Button, Form, Input, message, Select } from "antd";
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { userServ } from "../../Services/userService";
 import { formItemLayout, tailFormItemLayout } from "../../Utilities/FormLayout";
+import { setDataListUser } from "../../Redux/actions/actionUser";
+import { useDispatch } from "react-redux";
+import dayjs from "dayjs";
 export const UserEdit = () => {
   let { id } = useParams();
+  const navigate = useNavigate();
+  let dispatch = useDispatch();
+  const [defaultDate, setDefaultDate] = useState();
   const [form] = Form.useForm();
   useEffect(() => {
     userServ.getInfoId(id).then((res) => {
-      let newData = [];
-
-      for (const key in res.data.data) {
-        const element = res.data.data[key];
-        if (element === true) {
-          newData.push(key);
-        }
-      }
+      let { birthday } = res.data.data;
+      setDefaultDate([dayjs(birthday)]);
       form.setFieldsValue({ ...res.data.data });
     });
   }, [id]);
-
+  const [date, setDate] = useState(null);
   const onFinishSign = (values) => {
     values.gender = String(values.gender);
     console.log("Form values before submission:", values);
 
-    values.gender = values.gender === "Male" ? "Male" : "Female";
+    if (!date) {
+      message.error("Kiểm tra lại thông tin còn thiếu");
+      return;
+    }
+
+    let newData = {
+      ...values,
+      birthday: date + "T00:00:00.000Z",
+    };
+
+    console.log(newData);
+
+    newData.gender = newData.gender === "Male" ? "Male" : "Female";
     userServ
-      .editUser(id, values)
+      .editUser(id, newData)
       .then((res) => {
-        console.log(res.data);
+        dispatch(setDataListUser(res.data.data));
         message.success("Cập nhật thành công");
         setTimeout(() => {
-          window.location.reload();
+          navigate("/admin/user");
         }, 1500);
       })
       .catch((err) => {
@@ -40,21 +52,8 @@ export const UserEdit = () => {
       });
   };
 
-  const validateBirthday = (rule, value, callback) => {
-    // Kiểm tra nếu giá trị rỗng thì bỏ qua
-    if (!value) {
-      callback("Vui lòng nhập ngày sinh");
-      return;
-    }
-
-    // Kiểm tra định dạng YYYY-MM-DDTHH:mm:ss.sssZ
-    if (
-      !/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.(\d{3})Z$/.test(value)
-    ) {
-      callback("Ngày sinh không đúng định dạng YYYY-MM-DDTHH:mm:ss.sssZ");
-    } else {
-      callback();
-    }
+  const onDateChange = (e) => {
+    setDate(e.target.value);
   };
 
   const renderSign = () => {
@@ -91,12 +90,9 @@ export const UserEdit = () => {
               message: "Không bỏ trống",
               whitespace: true,
             },
-            {
-              validator: validateBirthday,
-            },
           ]}
         >
-          <Input placeholder="2002-04-10T00:00:00.000Z" />
+          <Input type="Date" onChange={onDateChange} />
         </Form.Item>
         <Form.Item
           rules={[

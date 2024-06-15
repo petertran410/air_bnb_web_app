@@ -7,7 +7,7 @@ export const userServ = {
     return https.post("/api/auth/signup", data);
   },
   editUser: (id, data) => https.put(`/api/users/update/${id}`, data),
-  postAvatar: (data) => https.post("/api/users/upload-avatar", data),
+  postAvatar: (data) => https.post("/api/users/new", data),
   getInfo: (id) => https.get(`/api/users/${id}`),
   getInfoId: (id) => https.get(`/api/users/user-by-id/${id}`),
   getDataUser: () => {

@@ -20,10 +20,10 @@ export const EditBooked = () => {
     bookSer
       .getBookedFromId(id)
       .then((res) => {
-        let { ngayDen, ngayDi } = res.data.content;
-        setDefaultDate([dayjs(ngayDen), dayjs(ngayDi)]);
+        let { arrival, departure } = res.data.data;
+        setDefaultDate([dayjs(arrival), dayjs(departure)]);
         form.setFieldsValue({
-          ...res.data.content,
+          ...res.data.data,
         });
       })
       .catch((err) => {
@@ -36,11 +36,15 @@ export const EditBooked = () => {
       message.error("Kiểm tra lại thông tin còn thiếu");
       return;
     }
-    let newData = { ...values, ngayDen: date[0], ngayDi: date[1] };
+    let newData = {
+      ...values,
+      arrival: date[0] + "T00:00:00.000Z",
+      departure: date[1] + "T00:00:00.000Z",
+    };
     bookSer
       .editBooked(id, newData)
       .then((res) => {
-        dispatch(setDataBooked(res.data.content));
+        dispatch(setDataBooked(res.data.data));
         message.success("Cập nhật thành công");
         setTimeout(() => {
           navigate("/admin/booked");
@@ -65,7 +69,7 @@ export const EditBooked = () => {
         scrollToFirstError
       >
         <Form.Item
-          name="maPhong"
+          name="room_id"
           label="Mã phòng"
           rules={[
             {
@@ -76,7 +80,7 @@ export const EditBooked = () => {
           <Input type={"number"} />
         </Form.Item>
         <Form.Item
-          name="maNguoiDung"
+          name="id"
           label="Mã người dùng"
           rules={[
             {
@@ -87,7 +91,7 @@ export const EditBooked = () => {
           <Input type={"number"} />
         </Form.Item>
         <Form.Item
-          name="soLuongKhach"
+          name="guests"
           label="Số khách"
           rules={[
             {

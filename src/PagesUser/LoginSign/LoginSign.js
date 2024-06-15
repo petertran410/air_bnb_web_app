@@ -7,11 +7,12 @@ import {
   Select,
   notification,
 } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setLogin } from "../../Redux/actions/actionUser";
+import { setDataListUser, setLogin } from "../../Redux/actions/actionUser";
 import { userServ } from "../../Services/userService";
 import { tailFormItemLayout, formItemLayout } from "../../Utilities/FormLayout";
+import { useNavigate } from "react-router-dom";
 const openNotification = (desc) => {
   const key = `open${Date.now()}`;
   const btn = (
@@ -29,12 +30,14 @@ const openNotification = (desc) => {
 };
 export const LoginSign = ({ isLogin }) => {
   let dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [date, setDate] = useState([]);
   const onFinishLogin = (values) => {
     let onSuccess = () => {
       message.success("Đăng nhập thành công");
       setTimeout(() => {
         window.location.reload();
-      }, 2000);
+      }, 1500);
     };
     let onFailed = () => {
       message.error("Đăng nhập thất bại");
@@ -42,24 +45,41 @@ export const LoginSign = ({ isLogin }) => {
     dispatch(setLogin(values, onSuccess, onFailed));
   };
   const onFinishSign = (values) => {
+    if (!date) {
+      message.error("Kiểm tra lại thông tin còn thiếu");
+      return;
+    }
+    let newData = {
+      ...values,
+      birthday: date + "T00:00:00.000Z",
+    };
+
     values.gender == "Male"
       ? (values.gender = "Male")
       : (values.gender = "Female");
 
     userServ
-      .postSign(values)
+      .postSign(newData)
       .then((res) => {
-        console.log(res.data);
+        dispatch(setDataListUser(res.data.data));
         message.success("Đăng kí thành công");
         openNotification(
           `Email : ${values.email} / Password: ${values.password}`
         );
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       })
       .catch((err) => {
         message.error("Đăng kí thất bại, email đã tồn tại hoặc lỗi kết nối");
         console.log(err);
       });
   };
+
+  const onDateChange = (e) => {
+    setDate(e.target.value);
+  };
+
   const renderLogin = () => {
     return (
       <Form
@@ -192,7 +212,7 @@ export const LoginSign = ({ isLogin }) => {
             },
           ]}
         >
-          <Input type={Date} />
+          <Input type="Date" onChange={onDateChange} />
         </Form.Item>
         <Form.Item
           rules={[
