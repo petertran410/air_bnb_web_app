@@ -19,7 +19,7 @@ import Avatar from "./Avatar";
 export default function UserInfo() {
   let dispatch = useDispatch();
   let navigate = useNavigate();
-  const [dataBooking, setDataBooking] = useState([s]);
+  const [dataBooking, setDataBooking] = useState([]);
   const [allRoom, setAllRoom] = useState([]);
   const [dataUser, setDataUser] = useState([]);
   console.log(dataBooking);

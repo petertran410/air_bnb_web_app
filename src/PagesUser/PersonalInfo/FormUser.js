@@ -28,7 +28,8 @@ const FormUser = ({ dataUser }) => {
         dispatch(setDataListUser(res.data.data));
         message.success("Cập nhật thành công");
         setTimeout(() => {
-          navigate("/");
+          window.location.reload();
+          navigate("/userInfo");
         }, 1500);
       })
       .catch((err) => {

@@ -161,7 +161,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="py-6 text-sm text-center text-gray-600">
-          © 2024 Duc Dat & Ngoc Nhan. All rights reserved.
+          © Ngoc Nhan. All rights reserved.
         </div>
       </footer>
     </div>
