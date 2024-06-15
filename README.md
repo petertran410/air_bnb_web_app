@@ -25,26 +25,20 @@ Click here and enjoy the web --> <a href="https://tetris-game-zeta.vercel.app/" 
 
 | Index | Name                    |     ID      |               Email                | Github account |
 | :---- | :---------------------- | :---------: | :--------------------------------: | :------------- |
-| 1     | Trần Quang Trí          | ITITIU20325 |     tranwangtristudy@gmail.com     | WangTris       |
-| 2     | Nguyễn Hoàng Luân       | ITITIU20012 |     luannguyenn.2k2@gmail.com      | naulkun7       |
-| 3     | Nguyễn Hoàng Thiên Phúc | ITITIU20279 | nguyenhoangthienphuc1802@gmail.com | thienphuc1802  |
-| 4     | Trần Ngọc Nhân          | ITITIU20264 |     nhantran4102002@gmail.com      | petertran410   |
+| 1     | Trần Ngọc Nhân          | ITITIU20264 |     nhantran4102002@gmail.com      | petertran410   |
+| 2     | Nguyễn Huỳnh Anh Tú     | ITITIU20337 |     nhatu.work@gmail.com           | nhatuwork      |
 
 ### Tasks and Contribution
 
 | Index | Role   | Person In Charge | Contribution |
 | :---- | :----- | :--------------: | :----------: |
-| 1     | Leader |    Hoàng Luân    |     25%      |
-| 2     | Member |    Quang Trí     |     25%      |
-| 3     | Member |    Thiên Phúc    |     25%      |
-| 4     | Member |    Ngọc Nhân     |     25%      |
+| 1     | Leader |    Ngọc Nhân     |     50%      |
+| 2     | Member |    Anh Tú        |     50%%     |
 
 | Name        | Tasks                                                                          |
 | :---------- | :----------------------------------------------------------------------------- |
-| Hoàng Luân  | Overall Framework, Ghostpiece func, Mobile, Set Difficulty func, Miscellaneous |
-| Quang Trí   | Readme, Holdpiece func, Sound Effect, Miscellaneous                            |
-| Thiên Phúc  | Score Board, Class Diagram, Algorithm (Sort), Miscellaneous                    |
-| Ngọc Nhân   | Undo func, Class Diagram, Miscellaneous                                        |
+| Ngọc Nhân   | Overall Framework, Room List, Detail Room, Booking Room, Service, Connect APIs Back-end |
+| Anh Tú      | Persional Information, Register Login, Admin Page, Main Page                            |
 | All members | Report, PowerPoint, Front-end                                                  |
 
 ### Environment :computer:
@@ -52,14 +46,11 @@ Click here and enjoy the web --> <a href="https://tetris-game-zeta.vercel.app/" 
 Language:
 
 ![image](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![image](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![image](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
 Platform:
 
 ![image](https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
-![image](https://img.shields.io/badge/WebStorm-000000?style=for-the-badge&logo=WebStorm&logoColor=white)  
-![image](http://therealsujitk-vercel-badge.vercel.app/?app=therealsujitk-vercel-badge&style=for-the-badge&logo=false)
 
 Design Pattern:
 
@@ -70,42 +61,31 @@ Design Pattern:
 
 **Main Feature:**
 
-- Play, Restart, Pause
-- Generate piece
-- Sound
-- Play field
+- Get: User, Location, Room, Reservation
+- Create: User, Location, Room, Reservation
+- Update: User, Location, Room, Reservation
+- Delete: User, Location, Room, Reservation
 
 **Extra feature:**
 
-- Undo state
-- Hold piece
-- Next piece
-- Ghost piece
-- Score board
-- Game Speed, Level, Set Difficulty
-- UI (Responsive)
-- Mobile Support (Ipad only)
+- Add comments
+- Add Like room
+- Add admin
+- Search room information by name
 
 **Future feature:**
 
-- User Score Database
-- Change color or theme by user
-- User ranking
-- Optimize for mobile user
-- More Game Animation
+- Google Map for each location
 
 ## Challenges <a name="challenges"></a> ✴️
 
-- Most of the team members are not familiar with Web environment
-- Problems with the IDE, Canvas
-- Problems when applying Data Structures and Algorithms in project
-- And some other smaller issues...
+- Connect APIs from Back-end
 
 ### What we have learned :pencil:
 
-Soft skills: works in GitHub, Google docs, Google slides,...  
+Soft skills: works in APIs, React, Redux
 Main skills: Debugs, Team work  
-Knowledge: HTML, CSS, JavaScript, Data Structures, Algorithms, UI design, Thesis report, Git and Github Usage
+Knowledge: HTML, CSS, JavaScript, UI design, Thesis report, Git and Github Usage
 
 ## UML Class Diagram <a name="uml"></a> 📄
 
