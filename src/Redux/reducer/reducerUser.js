@@ -3,7 +3,7 @@ import { SET_DATA_USER, SET_USER } from "../constant/constantUser";
 
 let initialState = {
   user: localServ.user.get(),
-  dataListUser: [],
+  dataListUser: {},
 };
 
 export const userReducer = (state = initialState, { type, payload }) => {

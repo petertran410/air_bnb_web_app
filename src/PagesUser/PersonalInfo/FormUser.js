@@ -1,34 +1,52 @@
 import { Button, Form, Input, Select, message } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { userServ } from "../../Services/userService";
 import { formItemLayout, tailFormItemLayout } from "../../Utilities/FormLayout";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setDataListUser } from "../../Redux/actions/actionUser";
 const FormUser = ({ dataUser }) => {
   let { id } = dataUser;
+  const navigate = useNavigate();
+  let dispatch = useDispatch();
+  const [date, setDate] = useState(null);
   const onFinish = (values) => {
-    let newData = { ...values, id };
+    if (!date) {
+      message.error("Kiểm tra lại thông tin còn thiếu");
+      return;
+    }
+    let newData = {
+      ...values,
+      birthday: date + "T00:00:00.000Z",
+    };
+
+    newData.gender = newData.gender === "Male" ? "Male" : "Female";
+
     userServ
       .editUser(id, newData)
-      .then(() => {})
       .then((res) => {
-        message.success("Dữ liệu của bạn đã được cập nhật");
+        dispatch(setDataListUser(res.data.data));
+        message.success("Cập nhật thành công");
         setTimeout(() => {
-          window.location.reload();
+          navigate("/");
         }, 1500);
       })
       .catch((err) => {
-        message.error("Máy chủ đang bảo trì, hãy quay lại sau");
+        message.error("Cập nhật thất bại");
         console.log(err);
       });
   };
   const [form] = Form.useForm();
-  id &&
-    form.setFieldsValue({
-      ...dataUser,
+  useEffect(() => {
+    userServ.getInfoId(id).then((res) => {
+      form.setFieldsValue({ ...res.data.data });
     });
-
+  }, [id]);
+  const onDateChange = (e) => {
+    setDate(e.target.value);
+  };
   return (
     <div className="p-9">
-      {" "}
       <Form
         {...formItemLayout}
         form={form}
@@ -51,7 +69,7 @@ const FormUser = ({ dataUser }) => {
           <Input />
         </Form.Item>
         <Form.Item name="email" label="E-mail">
-          <Input disabled />
+          <Input />
         </Form.Item>
         <Form.Item name="phone" label="Phone">
           <Input
@@ -61,12 +79,7 @@ const FormUser = ({ dataUser }) => {
           />
         </Form.Item>
         <Form.Item name="birthday" label="Ngày sinh">
-          <Input
-            type={"date"}
-            style={{
-              width: "100%",
-            }}
-          />
+          <Input type="Date" onChange={onDateChange} />
         </Form.Item>
         <Form.Item name="gender" label="Giới tính">
           <Select
@@ -76,11 +89,11 @@ const FormUser = ({ dataUser }) => {
             options={[
               {
                 value: true,
-                label: "Nam",
+                label: "Male",
               },
               {
                 value: false,
-                label: "Nữ",
+                label: "Female",
               },
             ]}
           />

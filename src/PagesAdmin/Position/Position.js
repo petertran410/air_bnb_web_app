@@ -7,10 +7,12 @@ import {
   searchPostion,
   setDataPosition,
 } from "../../Redux/actions/actionPosition";
+import { positionSer } from "../../Services/positionService";
 const { Search } = Input;
 export default function Position() {
-  const { dataPosition } = useSelector((state) => state.positionReducer);
+  // const { dataPosition } = useSelector((state) => state.positionReducer);
   const dispatch = useDispatch();
+  const [dataLocation, setDataLocation] = useState([]);
   const [dataSearch, setDataSearch] = useState("");
   useEffect(() => {
     dispatch(setDataPosition());
@@ -25,6 +27,21 @@ export default function Position() {
   const onSearch = (e) => {
     setDataSearch(e.target.value);
   };
+
+  useEffect(() => {
+    positionSer
+      .getPosition()
+      .then((result) => {
+        setDataLocation(result.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const positionArray = Array.isArray(dataLocation)
+    ? dataLocation
+    : Object.values(dataLocation);
 
   return (
     <div className="container mx-auto">
@@ -43,7 +60,7 @@ export default function Position() {
         }}
         className="py-2"
       />
-      <PositionTable dataPosition={dataPosition} />
+      <PositionTable dataListPosition={positionArray} />
     </div>
   );
 }

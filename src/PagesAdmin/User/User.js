@@ -4,24 +4,41 @@ import { Button, Input } from "antd";
 import { NavLink } from "react-router-dom";
 import UserTable from "./UserTable";
 import { searchUser, setDataListUser } from "../../Redux/actions/actionUser";
+import { userServ } from "../../Services/userService";
 const { Search } = Input;
 export default function User() {
-  const { dataListUser } = useSelector((state) => state.userReducer);
+  const { user: userInfo } = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   const [dataSearch, setDataSearch] = useState("");
+  const [dataUser, setDataUser] = useState([]);
   useEffect(() => {
     dispatch(setDataListUser());
   }, []);
   useEffect(() => {
     const timeout = setTimeout(() => {
       dispatch(searchUser(dataSearch));
-    }, 1000);
+    }, 1500);
     return () => clearTimeout(timeout);
   }, [dataSearch]);
+
+  useEffect(() => {
+    userServ
+      .getDataUser()
+      .then((result) => {
+        setDataUser(result.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const onSearch = (e) => {
     setDataSearch(e.target.value);
   };
+
+  const userArray = Array.isArray(dataUser)
+    ? dataUser
+    : Object.values(dataUser);
 
   return (
     <div className="container mx-auto">
@@ -40,7 +57,7 @@ export default function User() {
         }}
         className="py-2"
       />
-      <UserTable dataListUser={dataListUser} />
+      <UserTable dataListUser={userArray} />
     </div>
   );
 }

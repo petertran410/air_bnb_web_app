@@ -11,14 +11,14 @@ import { positionSer } from "../../Services/positionService";
 export default function HomePage() {
   let navigate = useNavigate();
   let dispatch = useDispatch();
-  const [positionFamous, setPositionFamous] = useState("");
+  const [positionFamous, setPositionFamous] = useState([]);
   const [popHide, setPopHide] = useState(true);
   useEffect(() => {
     dispatch(setLoadingOn());
     positionSer
       .getPositionFamous()
       .then((res) => {
-        setPositionFamous(res.data.content);
+        setPositionFamous(res.data.data);
         dispatch(setLoadingOff());
       })
       .catch((err) => {
@@ -30,7 +30,7 @@ export default function HomePage() {
     navigate(`/detail/${value.id}`);
   };
   let renderFamous = () => {
-    return positionFamous.data?.map((item, i) => {
+    return positionFamous.map((item, i) => {
       return (
         <div className="flex items-center" key={i}>
           <img
@@ -38,10 +38,10 @@ export default function HomePage() {
               getDataItem(item);
             }}
             className="w-24 h-24 ease-in-out shadow-lg rounded-full hover:shadow-blue-500/50 mx-2 hover:scale-110 hover:cursor-pointer duration-300"
-            src={item.hinhAnh}
-            alt={item.tenViTri}
+            src={item.photo}
+            alt={item.address}
           />
-          <h2>{item.tenViTri + "," + item.tinhThanh}</h2>
+          <h2>{item.address + "," + item.city}</h2>
         </div>
       );
     });

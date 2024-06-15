@@ -15,7 +15,7 @@ export const setDataRoom = () => {
     roomServ
       .getAllDataRoom()
       .then((res) => {
-        dispatch(setDataRoomSuccess(res.data.content));
+        dispatch(setDataRoomSuccess(res.data.data));
         dispatch(setLoadingOff());
       })
       .catch((err) => {
@@ -30,7 +30,7 @@ export const searchRoom = (idRoom) => {
       roomServ
         .getAllDataRoom()
         .then((res) => {
-          dispatch(setDataRoomSuccess(res.data.content));
+          dispatch(setDataRoomSuccess(res.data.data));
         })
         .catch((err) => {
           console.log(err);
@@ -39,7 +39,7 @@ export const searchRoom = (idRoom) => {
       roomServ
         .getDataRoom(idRoom)
         .then((res) => {
-          dispatch(setDataRoomSuccess([res.data.content]));
+          dispatch(setDataRoomSuccess([res.data.data]));
         })
         .catch((err) => {
           console.log(err);

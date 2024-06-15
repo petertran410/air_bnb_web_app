@@ -19,27 +19,28 @@ import Avatar from "./Avatar";
 export default function UserInfo() {
   let dispatch = useDispatch();
   let navigate = useNavigate();
-  const [dataBooking, setDataBooking] = useState(null);
-  const [allRoom, setAllRoom] = useState(null);
-  const [dataUser, setDataUser] = useState(null);
+  const [dataBooking, setDataBooking] = useState([s]);
+  const [allRoom, setAllRoom] = useState([]);
+  const [dataUser, setDataUser] = useState([]);
+  console.log(dataBooking);
   let { user: userInfo } = useSelector((state) => state.userReducer);
-  let get_user_ID = userInfo.user.id;
+  let get_user_ID = userInfo.user.data.id;
   useEffect(() => {
     roomServ
       .getDataBooking(get_user_ID)
       .then((res) => {
-        setDataBooking(res.data.content);
+        setDataBooking([res.data.data]);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [get_user_ID]);
   useEffect(() => {
     dispatch(setLoadingOn());
     roomServ
       .getAllDataRoom()
       .then((res) => {
-        setAllRoom(res.data.content);
+        setAllRoom(res.data.data);
         dispatch(setLoadingOff());
       })
       .catch((err) => {
@@ -51,7 +52,7 @@ export default function UserInfo() {
     userServ
       .getInfo(get_user_ID)
       .then((res) => {
-        setDataUser(res.data.content);
+        setDataUser(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -70,9 +71,17 @@ export default function UserInfo() {
       .catch((err) => console.log(err));
   };
   const renderData = () => {
+    if (!Array.isArray(dataBooking) || dataBooking.length === 0) {
+      return (
+        <p className="h-56 text-left text-xl font-semibold">
+          Hiện bạn vẫn chưa đặt vé phòng nào !
+        </p>
+      );
+    }
+
     //fix data
     let newData = dataBooking.map((selectRoom) => {
-      let index = allRoom.findIndex((item) => item.id === selectRoom.maPhong);
+      let index = allRoom.findIndex((item) => item.id === selectRoom.room_id);
       return { ...selectRoom, ...allRoom[index], idDelete: selectRoom.id };
     });
     return newData.length ? (
@@ -82,23 +91,23 @@ export default function UserInfo() {
             <section key={i} className="shadow-md rounded-lg p-5 space-y-5">
               <img
                 onClick={() => {
-                  navigate(`/room/${item.maPhong}`);
+                  navigate(`/room/${item.room_id}`);
                 }}
                 className="hover:cursor-pointer"
-                src={item.hinhAnh}
+                src={item.photo}
                 alt="selectRoom"
               />
               <div className="space-y-5">
-                <span className="font-bold text-xl">{item.tenPhong}</span>
+                <span className="font-bold text-xl">{item.name}</span>
                 <section>
                   {" "}
                   <span className="span-gray">
-                    {moment(item.ngayDen).format("DD/MM/YYYY")} đến
+                    {moment(item.arrival).format("DD/MM/YYYY")} đến
                   </span>
                   <span className="span-gray">
-                    {moment(item.ngayDi).format("DD/MM/YYYY")} đi
+                    {moment(item.departure).format("DD/MM/YYYY")} đi
                   </span>
-                  <span className="span-gray">{item.soLuongKhach} người</span>
+                  <span className="span-gray">{item.guests} người</span>
                   <Popconfirm
                     title="Phòng sẽ hủy vé của bạn ?"
                     onConfirm={() => {
@@ -125,25 +134,28 @@ export default function UserInfo() {
   };
   const renderPersonal = () => {
     let { name, email, phone, birthday, gender, role } = dataUser;
+
     return (
       <div className="flex space-x-3">
         <section>
           <p>
-            Tên <b> {name} </b>
+            Tên: <b> {name} </b>
           </p>
           <p>
-            Email <b>{email}</b>
+            Email: <b>{email}</b>
           </p>
           <p>
-            Số điện thoại <b>{phone}</b>
+            Số điện thoại: <b>{phone}</b>
           </p>
           <p>
-            Ngày sinh <b>{birthday}</b>
+            Ngày sinh: <b>{birthday}</b>
           </p>
           <p>
-            Giới tính <b>{gender ? "Nam" : "Nữ"}</b>
+            Giới tính: <b>{gender ? "Male" : "Female"}</b>
           </p>
-          <p>{role === "USER" ? "Khách hàng" : "Admin"}</p>
+          <p>
+            Role: <b>{role === "Guest" ? "Khách hàng" : "Admin"}</b>
+          </p>
           <ModalUpdateUser dataUser={dataUser} />
         </section>
         <Avatar />
@@ -152,44 +164,38 @@ export default function UserInfo() {
   };
   const renderLikeRoom = () => {
     let likeRoom = localLike.like.get();
-    let newData = likeRoom.map((room) => {
-      return allRoom.filter((item) => {
-        return item.id === room;
-      })[0];
+    // let newData = likeRoom.map((room) => {
+    //   return allRoom.filter((item) => {
+    //     return item;
+    //   })[0];
+    // });
+
+    let newData = allRoom.map((room) => {
+      return room;
     });
     return newData.length ? (
       <div className="grid grid-cols-1 lg:grid-cols-2 my-5 gap-10">
         {newData.map((item, i) => {
-          let {
-            id,
-            hinhAnh,
-            tenPhong,
-            khach,
-            phongNgu,
-            phongTam,
-            giuong,
-            giaTien,
-          } = item;
+          let { id, photo, name, guests, bedrooms, bathrooms, beds, price } =
+            item;
           return (
             <section key={i} className="shadow-lg rounded  duration-300">
               <div className="p-3">
-                <h2 className=" text-lg font-bold">{tenPhong}</h2>
+                <h2 className=" text-lg font-bold">{name}</h2>
                 <img
                   className="hover:cursor-pointer"
                   onClick={() => {
                     navigate(`/room/${id}`);
                   }}
-                  src={hinhAnh}
+                  src={photo}
                   alt="mainImage"
                 />
                 <div className="pt-4 pb-2">
-                  <span className="span-gray">{khach} khách</span>
-                  <span className="span-gray">{phongNgu} phòng ngủ</span>
-                  <span className="span-gray">{giuong} giường</span>
-                  <span className="span-gray">{phongTam} phòng tắm</span>
-                  <span className="span-gray bg-yellow-300">
-                    {giaTien}$/đêm
-                  </span>
+                  <span className="span-gray">{guests} khách</span>
+                  <span className="span-gray">{bedrooms} phòng ngủ</span>
+                  <span className="span-gray">{beds} giường</span>
+                  <span className="span-gray">{bathrooms} phòng tắm</span>
+                  <span className="span-gray bg-yellow-300">{price}$/đêm</span>
                   <Link
                     to={`/room/${id}`}
                     className="span-gray text-gray-50  bg-red-500"

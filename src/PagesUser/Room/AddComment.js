@@ -7,15 +7,15 @@ const today = new Date();
 const date =
   today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
 const initialization = {
-  ngayBinhLuan: date,
-  noiDung: "",
-  saoBinhLuan: 3,
+  date: date + "T02:29:32.945Z",
+  content: "",
+  rated: 4,
 };
 export default function AddComment({ idRoom }) {
-  let { user:userInfo } = useSelector((state) => state.userReducer);
+  let { user: userInfo } = useSelector((state) => state.userReducer);
   const [getData, setGetData] = useState(initialization);
   const onChangeRate = (e) => {
-    setGetData({ ...getData, saoBinhLuan: e });
+    setGetData({ ...getData, rated: e });
   };
   const sendValue = () => {
     if (!userInfo) {
@@ -25,10 +25,10 @@ export default function AddComment({ idRoom }) {
     let newData = {
       ...getData,
       maPhong: idRoom,
-      maNguoiBinhLuan: userInfo.user.id,
+      maNguoiBinhLuan: userInfo.id,
     };
 
-    newData.noiDung
+    newData.content
       ? roomServ
           .postComment(newData)
           .then((res) => {
@@ -46,7 +46,7 @@ export default function AddComment({ idRoom }) {
       : message.error("Nội dung không được để trống");
   };
   const onChangeText = (e) => {
-    setGetData({ ...getData, noiDung: e.target.value });
+    setGetData({ ...getData, content: e.target.value });
   };
 
   return (

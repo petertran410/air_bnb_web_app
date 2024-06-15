@@ -6,37 +6,53 @@ import { roomServ } from "../../Services/roomService";
 import { formItemLayout, tailFormItemLayout } from "../../Utilities/FormLayout";
 
 export const AddRoom = () => {
-  const [dataBox, setDataBox] = useState([
-    "mayGiat",
-    "tivi",
-    "doXe",
-    "hoBoi",
-    "dieuHoa",
-    "banLa",
-    "banUi",
-    "bep",
-    "wifi",
-  ]);
+  let navigate = useNavigate();
+  const [dataBox, setDataBox] = useState({
+    washing_machine: "false",
+    television: "false",
+    parking: "false",
+    swimming_pool: "false",
+    air_conditioner: "false",
+    electric_iron: "false",
+    stove: "false",
+    wifi: "false",
+  });
+
   const onFinishSign = (values) => {
-    let newData = [];
-    dataBox.forEach((item) => {
-      newData[item] = true;
-    });
-    let dataSend = { ...values, ...newData };
+    let dataSend = { ...values, ...dataBox };
     roomServ
       .createRoom(dataSend)
       .then((res) => {
-        console.log(res.data.content);
+        console.log(res.data.data);
         message.success("Đăng kí thành công");
+        setTimeout(() => {
+          navigate("/admin/room");
+        }, 1500);
       })
       .catch((err) => {
         message.error("Thất bại xin kiểm tra lại");
         console.log(err);
       });
   };
+
   const onChange = (checkedValues) => {
-    setDataBox(checkedValues);
+    let updatedDataBox = {
+      washing_machine: "false",
+      television: "false",
+      parking: "false",
+      swimming_pool: "false",
+      air_conditioner: "false",
+      electric_iron: "false",
+      stove: "false",
+      wifi: "false",
+    };
+    checkedValues.forEach((item) => {
+      updatedDataBox[item] = "true";
+    });
+    setDataBox(updatedDataBox);
+    console.log(updatedDataBox);
   };
+
   const renderSign = () => {
     return (
       <Form
@@ -47,7 +63,7 @@ export const AddRoom = () => {
         scrollToFirstError
       >
         <Form.Item
-          name="tenPhong"
+          name="name"
           label="Tên phòng"
           rules={[
             {
@@ -60,7 +76,7 @@ export const AddRoom = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name="khach"
+          name="guests"
           label="Số khách"
           rules={[
             {
@@ -73,7 +89,7 @@ export const AddRoom = () => {
           <Input type={"number"} />
         </Form.Item>
         <Form.Item
-          name="phongNgu"
+          name="bedrooms"
           label="Số phòng ngủ"
           rules={[
             {
@@ -86,7 +102,7 @@ export const AddRoom = () => {
           <Input type={"number"} />
         </Form.Item>
         <Form.Item
-          name="giuong"
+          name="beds"
           label="Số giường"
           rules={[
             {
@@ -99,7 +115,7 @@ export const AddRoom = () => {
           <Input type={"number"} />
         </Form.Item>
         <Form.Item
-          name="phongTam"
+          name="bathrooms"
           label="Phòng tắm"
           rules={[
             {
@@ -112,7 +128,7 @@ export const AddRoom = () => {
           <Input type={"number"} />
         </Form.Item>
         <Form.Item
-          name="giaTien"
+          name="price"
           label="Giá tiền 1 đêm"
           rules={[
             {
@@ -125,7 +141,7 @@ export const AddRoom = () => {
           <Input type={"number"} />
         </Form.Item>
         <Form.Item
-          name="maViTri"
+          name="location_id"
           label="Mã vị trí"
           rules={[
             {
@@ -138,7 +154,7 @@ export const AddRoom = () => {
           <Input type={"number"} />
         </Form.Item>
         <Form.Item
-          name="hinhAnh"
+          name="photo"
           label="Hình ảnh khách sạn (URL)"
           rules={[
             {
@@ -151,7 +167,7 @@ export const AddRoom = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name="moTa"
+          name="description"
           label="Mô tả về phòng thuê"
           rules={[
             {
@@ -164,17 +180,6 @@ export const AddRoom = () => {
           <Input.TextArea rows={4} />
         </Form.Item>
         <Checkbox.Group
-          defaultValue={[
-            "mayGiat",
-            "tivi",
-            "doXe",
-            "hoBoi",
-            "dieuHoa",
-            "banLa",
-            "banUi",
-            "bep",
-            "wifi",
-          ]}
           style={{
             width: "100%",
           }}
@@ -182,28 +187,25 @@ export const AddRoom = () => {
         >
           <Row>
             <Col span={8}>
-              <Checkbox value="mayGiat">Máy giặt</Checkbox>
+              <Checkbox value="washing_machine">Máy Giặt</Checkbox>
             </Col>
             <Col span={8}>
-              <Checkbox value="banLa">Bàn là</Checkbox>
+              <Checkbox value="electric_iron">Bàn Ủi</Checkbox>
             </Col>
             <Col span={8}>
-              <Checkbox value="banUi">Bàn ủi</Checkbox>
+              <Checkbox value="television">Ti vi</Checkbox>
             </Col>
             <Col span={8}>
-              <Checkbox value="tivi">Ti vi</Checkbox>
+              <Checkbox value="air_conditioner">Máy Lạnh</Checkbox>
             </Col>
             <Col span={8}>
-              <Checkbox value="dieuHoa">Điều hòa</Checkbox>
+              <Checkbox value="stove">Bếp</Checkbox>
             </Col>
             <Col span={8}>
-              <Checkbox value="bep">Bếp</Checkbox>
+              <Checkbox value="parking">Đỗ Xe</Checkbox>
             </Col>
             <Col span={8}>
-              <Checkbox value="doXe">Bãi đỗ xe</Checkbox>
-            </Col>
-            <Col span={8}>
-              <Checkbox value="hoBoi">Hồ bơi</Checkbox>
+              <Checkbox value="swimming_pool">Hồ Bơi</Checkbox>
             </Col>
             <Col span={8}>
               <Checkbox value="wifi">Wi fi</Checkbox>

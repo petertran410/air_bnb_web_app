@@ -11,7 +11,7 @@ export const setDataBooked = () => {
     bookSer
       .getData()
       .then((res) => {
-        dispatch(setDataBookedSuccess(res.data.content));
+        dispatch(setDataBookedSuccess(res.data.data));
       })
       .catch((err) => {
         console.log(err);
@@ -24,7 +24,7 @@ export const searchBooked = (id) => {
       bookSer
         .getData()
         .then((res) => {
-          dispatch(setDataBookedSuccess(res.data.content));
+          dispatch(setDataBookedSuccess(res.data.data));
         })
         .catch((err) => {
           console.log(err);
@@ -33,7 +33,7 @@ export const searchBooked = (id) => {
       bookSer
         .getDataBooking(id)
         .then((res) => {
-          dispatch(setDataBookedSuccess(res.data.content));
+          dispatch(setDataBookedSuccess(res.data.data));
         })
         .catch((err) => {
           console.log(err);

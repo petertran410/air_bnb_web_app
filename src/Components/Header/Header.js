@@ -25,9 +25,9 @@ export default function Header() {
     positionSer
       .getPosition()
       .then((res) => {
-        let newData = res.data.content.map((item) => {
+        let newData = res.data.data.map((item) => {
           return {
-            value: item.tinhThanh,
+            value: item.address,
             key: item.id,
           };
         });
@@ -68,7 +68,7 @@ export default function Header() {
         {
           label:
             userInfo &&
-            (userInfo.user.role === "ADMIN" ? (
+            (userInfo.user.data.role === "Admin" ? (
               <Link to={"/admin"}>
                 <span className="font-semibold text-blue-500 hover:text-blue-700 duration-300">
                   Admin
@@ -77,7 +77,7 @@ export default function Header() {
             ) : (
               <Link to={"/"}>
                 <span className="font-semibold text-blue-500 hover:text-blue-700 duration-300">
-                  Xin chào {userInfo.user.name}
+                  Xin chào {userInfo.user.data.name}
                 </span>
               </Link>
             )),
@@ -184,8 +184,8 @@ export default function Header() {
                   <img
                     className="w-10 h-12 rounded-full"
                     src={
-                      userInfo.user.avatar
-                        ? userInfo.user.avatar
+                      userInfo.avatar
+                        ? userInfo.data.avatar
                         : "https://i.pravatar.cc/100"
                     }
                     alt="avatar"

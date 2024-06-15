@@ -10,14 +10,15 @@ import { useDispatch } from "react-redux";
 import { setLoadingOff, setLoadingOn } from "../../Redux/actions/actionsSpiner";
 import { memo } from "react";
 const initialValues = {
-  ngayDen: "",
-  ngayDi: "",
+  arrival: "",
+  departure: "",
   nguoiLon: 1,
   treEm: 0,
 };
 function BookRoom({ giaTien, id, khach, isStatus }) {
   let dispatch = useDispatch();
   let { user: userInfo } = useSelector((state) => state.userReducer);
+  console.log(userInfo);
   let { disDates, disDatesFormat } = isStatus;
   const [dataBooking, setDataBooking] = useState(initialValues);
   const [dateRange, setDateRange] = useState([null, null]);
@@ -29,11 +30,11 @@ function BookRoom({ giaTien, id, khach, isStatus }) {
     setDataBooking({ ...dataBooking, treEm: value });
   };
   const renderTotal = () => {
-    let { ngayDen, ngayDi, nguoiLon, treEm } = dataBooking;
-    let days = totalDay(ngayDi, ngayDen);
+    let { arrival, departure, nguoiLon, treEm } = dataBooking;
+    let days = totalDay(departure, arrival);
     let daysBooking = [];
     for (let i = 0; i < days; i++) {
-      let addDay = moment(ngayDen).add(i, "days").format("YYYY-MM-DD");
+      let addDay = moment(arrival).add(i, "days").format("YYYY-MM-DD");
       !disDatesFormat.includes(addDay) && daysBooking.push(addDay);
     }
     let totalMoney = daysBooking.length * giaTien * (nguoiLon + treEm);
@@ -74,19 +75,19 @@ function BookRoom({ giaTien, id, khach, isStatus }) {
         return;
       }
     }
-    let { ngayDen, nguoiLon, treEm, ngayDi } = dataBooking;
-    if (moment(ngayDi).format() == moment(ngayDen).format()) {
+    let { arrival, nguoiLon, treEm, departure } = dataBooking;
+    if (moment(departure).format() == moment(arrival).format()) {
       message.error(
         "Bạn không thể chọn ngày giống nhau, nếu thuê 1 ngày hãy chọn ngày đến kế tiếp"
       );
       return;
     }
     let newData = {
-      maNguoiDung: userInfo.user.id,
-      soLuongKhach: treEm + nguoiLon,
-      maPhong: id,
-      ngayDen: moment(ngayDen).format("YYYY-MM-DD"),
-      ngayDi: moment(ngayDi).format("YYYY-MM-DD"),
+      reserved_by_id: userInfo.user.data.id,
+      guests: treEm + nguoiLon,
+      room_id: id,
+      arrival: moment(arrival).format("YYYY-MM-DD") + "T00:00:00.000Z",
+      departure: moment(departure).format("YYYY-MM-DD") + "T00:00:00.000Z",
     };
     dispatch(setLoadingOn());
     roomServ
@@ -128,8 +129,8 @@ function BookRoom({ giaTien, id, khach, isStatus }) {
           onChange={(update) => {
             setDataBooking({
               ...dataBooking,
-              ngayDen: update[0],
-              ngayDi: update[1],
+              arrival: update[0],
+              departure: update[1],
             });
             setDateRange(update);
           }}

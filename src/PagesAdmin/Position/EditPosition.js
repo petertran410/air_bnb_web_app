@@ -13,8 +13,8 @@ export const EditPosition = () => {
     positionSer
       .editPosition(id, values)
       .then((res) => {
-        console.log(res.data.content);
-        dispatch(setDataPosition(res.data.content));
+        console.log(res.data.data);
+        dispatch(setDataPosition(res.data.data));
         message.success("Cập nhật thành công");
         setTimeout(() => {
           navigate("/admin/position");
@@ -28,10 +28,17 @@ export const EditPosition = () => {
   const [form] = Form.useForm();
   useEffect(() => {
     positionSer
-      .getDataFromId(id)
+      .getCurrentPosition(id)
       .then((res) => {
+        let newData = [];
+        for (const key in res.data.data) {
+          const element = res.data.data[key];
+          if (element === true) {
+            newData.push(key);
+          }
+        }
         form.setFieldsValue({
-          ...res.data.content,
+          ...res.data.data,
         });
       })
       .catch((err) => {
@@ -49,7 +56,7 @@ export const EditPosition = () => {
         scrollToFirstError
       >
         <Form.Item
-          name="tenViTri"
+          name="address"
           label="Tên vị trí"
           rules={[
             {
@@ -62,7 +69,7 @@ export const EditPosition = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name="tinhThanh"
+          name="city"
           label="Tên chi tiết tỉnh thành"
           rules={[
             {
@@ -75,7 +82,7 @@ export const EditPosition = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name="quocGia"
+          name="country"
           label="Tên quốc gia"
           rules={[
             {
@@ -88,7 +95,7 @@ export const EditPosition = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name="hinhAnh"
+          name="photo"
           label="Hình ảnh khách sạn (URL)"
           rules={[
             {

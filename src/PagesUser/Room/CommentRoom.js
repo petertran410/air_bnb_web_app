@@ -9,7 +9,7 @@ export default function CommentRoom({ dataComment, idRoom }) {
   };
   const renderContent = () => {
     return newData.map((item, i) => {
-      let { saoBinhLuan, ngayBinhLuan, noiDung, avatar } = item;
+      let { rated, date, content, created_by } = item;
       return (
         <div
           key={i}
@@ -19,23 +19,23 @@ export default function CommentRoom({ dataComment, idRoom }) {
             <div className="flex space-x-4">
               <div>
                 <img
-                  src={avatar}
+                  src={created_by.avatar}
                   alt="avatar_random"
                   className="object-cover w-12 h-12 rounded-full bg-gray-500"
                 />
               </div>
               <div>
                 <h4 className="font-bold">Ẩn danh</h4>
-                <span className="text-xs text-gray-400">{ngayBinhLuan}</span>
+                <span className="text-xs text-gray-400">{date}</span>
               </div>
             </div>
             <div className="flex items-center space-x-2 text-yellow-500">
               <StarIcon />
-              <span className="text-xl font-bold">{saoBinhLuan}</span>
+              <span className="text-xl font-bold">{rated}</span>
             </div>
           </div>
           <div className="p-4 pb-0 space-y-2 text-sm text-black">
-            <p>{noiDung}</p>
+            <p>{content}</p>
           </div>
         </div>
       );

@@ -1,42 +1,59 @@
 import { Button, Form, Input, message, Select } from "antd";
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { userServ } from "../../Services/userService";
 import { formItemLayout, tailFormItemLayout } from "../../Utilities/FormLayout";
+import { setDataListUser } from "../../Redux/actions/actionUser";
+import { useDispatch } from "react-redux";
+import dayjs from "dayjs";
 export const UserEdit = () => {
   let { id } = useParams();
+  const navigate = useNavigate();
+  let dispatch = useDispatch();
+  const [defaultDate, setDefaultDate] = useState();
   const [form] = Form.useForm();
   useEffect(() => {
-    userServ.getInfo(id).then((res) => {
-      console.log(res);
-      let { gender } = res.data.content;
-      if (gender) {
-        gender = "nam";
-      } else {
-        gender = "nu";
-      }
-      let newData = { ...res.data.content, gender: gender };
-      form.setFieldsValue({
-        ...newData,
-      });
+    userServ.getInfoId(id).then((res) => {
+      let { birthday } = res.data.data;
+      setDefaultDate([dayjs(birthday)]);
+      form.setFieldsValue({ ...res.data.data });
     });
   }, [id]);
-
+  const [date, setDate] = useState(null);
   const onFinishSign = (values) => {
-    values.gender == "nam" ? (values.gender = true) : (values.gender = false);
+    values.gender = String(values.gender);
+    console.log("Form values before submission:", values);
+
+    if (!date) {
+      message.error("Kiểm tra lại thông tin còn thiếu");
+      return;
+    }
+
+    let newData = {
+      ...values,
+      birthday: date + "T00:00:00.000Z",
+    };
+
+    console.log(newData);
+
+    newData.gender = newData.gender === "Male" ? "Male" : "Female";
     userServ
-      .editUser(id, values)
+      .editUser(id, newData)
       .then((res) => {
-        console.log(res.data.content);
+        dispatch(setDataListUser(res.data.data));
         message.success("Cập nhật thành công");
         setTimeout(() => {
-          window.location.reload();
+          navigate("/admin/user");
         }, 1500);
       })
       .catch((err) => {
         message.error("Cập nhật thất bại");
         console.log(err);
       });
+  };
+
+  const onDateChange = (e) => {
+    setDate(e.target.value);
   };
 
   const renderSign = () => {
@@ -75,12 +92,12 @@ export const UserEdit = () => {
             },
           ]}
         >
-          <Input type={"date"} />
+          <Input type="Date" onChange={onDateChange} />
         </Form.Item>
         <Form.Item
           rules={[
             {
-              required: true,
+              required: false,
               message: "Không bỏ trống",
             },
           ]}
@@ -93,12 +110,12 @@ export const UserEdit = () => {
             }}
             options={[
               {
-                value: "nam",
-                label: "Nam",
+                value: "Male",
+                label: "Male",
               },
               {
-                value: "nu",
-                label: "Nữ",
+                value: "Female",
+                label: "Female",
               },
             ]}
           />
@@ -119,12 +136,12 @@ export const UserEdit = () => {
             }}
             options={[
               {
-                value: "ADMIN",
-                label: "ADMIN",
+                value: "Admin",
+                label: "Admin",
               },
               {
-                value: "USER",
-                label: "USER",
+                value: "Guest",
+                label: "Guest",
               },
             ]}
           />

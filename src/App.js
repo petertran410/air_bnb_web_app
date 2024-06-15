@@ -47,7 +47,7 @@ function App() {
             }
           />
           <Route
-            path="/room/:id/*"
+            path="/room/:id"
             element={
               <Layout>
                 <RoomUser />
