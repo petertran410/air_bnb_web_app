@@ -7,14 +7,16 @@ export const UserEdit = () => {
   let { id } = useParams();
   const [form] = Form.useForm();
   useEffect(() => {
-    userServ.getInfo(id).then((res) => {
-      console.log(res);
-      let { gender } = res.data;
-      gender = gender ? "Male" : "Female";
-      let newData = { ...res.data, gender: gender };
-      form.setFieldsValue({
-        ...newData,
-      });
+    userServ.getInfoId(id).then((res) => {
+      let newData = [];
+
+      for (const key in res.data.data) {
+        const element = res.data.data[key];
+        if (element === true) {
+          newData.push(key);
+        }
+      }
+      form.setFieldsValue({ ...res.data.data });
     });
   }, [id]);
 
@@ -36,6 +38,23 @@ export const UserEdit = () => {
         message.error("Cập nhật thất bại");
         console.log(err);
       });
+  };
+
+  const validateBirthday = (rule, value, callback) => {
+    // Kiểm tra nếu giá trị rỗng thì bỏ qua
+    if (!value) {
+      callback("Vui lòng nhập ngày sinh");
+      return;
+    }
+
+    // Kiểm tra định dạng YYYY-MM-DDTHH:mm:ss.sssZ
+    if (
+      !/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.(\d{3})Z$/.test(value)
+    ) {
+      callback("Ngày sinh không đúng định dạng YYYY-MM-DDTHH:mm:ss.sssZ");
+    } else {
+      callback();
+    }
   };
 
   const renderSign = () => {
@@ -72,9 +91,12 @@ export const UserEdit = () => {
               message: "Không bỏ trống",
               whitespace: true,
             },
+            {
+              validator: validateBirthday,
+            },
           ]}
         >
-          <Input type={Date} />
+          <Input placeholder="2002-04-10T00:00:00.000Z" />
         </Form.Item>
         <Form.Item
           rules={[

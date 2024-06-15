@@ -5,7 +5,9 @@ import { HeartIcon } from "../../Utilities/IconSVG";
 import { CiHeart } from "react-icons/ci";
 export default function BookMark({ id }) {
   let dataLocal = localLike.like.get();
+  console.log(dataLocal);
   let userInfo = localServ.user.get();
+  console.log(userInfo);
   const [isBookMark, setIsBookMark] = useState(false);
   useEffect(() => {
     dataLocal.includes(id) && setIsBookMark(true);

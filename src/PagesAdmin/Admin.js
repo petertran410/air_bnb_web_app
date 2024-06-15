@@ -37,7 +37,8 @@ export default function Admin({ Component }) {
   const [collapsed, setCollapsed] = useState(false);
   let navigate = useNavigate();
   const localUser = localServ.user.get();
-  if (localUser?.user.role !== "ADMIN") {
+
+  if (localUser?.user.data.role !== "Admin") {
     message.warn("Bạn không đươc phép truy cập vào trang này");
     setTimeout(() => {
       navigate("/");
@@ -57,7 +58,8 @@ export default function Admin({ Component }) {
         >
           <NavLink to="/">
             <img
-              src="airbnb-logo.png" alt="Hình ảnh"
+              src="airbnb-logo.png"
+              alt="Hình ảnh"
               className="bg-cover p-5"
             />
           </NavLink>

@@ -7,6 +7,7 @@ import { setDataRoom } from "../../Redux/actions/actionRoom";
 export default function RoomTable({ dataRoom }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const columns = [
     {
       title: "ID",
@@ -15,23 +16,23 @@ export default function RoomTable({ dataRoom }) {
     },
     {
       title: "Tên phòng",
-      dataIndex: "tenPhong",
-      key: "tenPhong",
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Mã vị trí",
-      dataIndex: "maViTri",
-      key: "maViTri",
+      dataIndex: "location_id",
+      key: "location_id",
     },
     {
       title: "Giá tiền",
-      dataIndex: "giaTien",
-      key: "giaTien",
+      dataIndex: "price",
+      key: "price",
     },
     {
       title: "Image",
-      dataIndex: "hinhAnh",
-      key: "hinhAnh",
+      dataIndex: "photo",
+      key: "photo",
       render: (url) => {
         return <img className="w-80" src={url} alt="image" />;
       },

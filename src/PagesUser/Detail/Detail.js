@@ -6,7 +6,7 @@ import { roomServ } from "../../Services/roomService";
 import { dataUrlImage } from "../../Assets/dataImage";
 import repair from "../../Assets/repair.png";
 import "./Detail.css";
-import { locationVN } from "../../Assets/dataLocation";
+import { locationVN } from "../../Assets/dataLocation.js";
 import SimpleMap from "./GGmap";
 import { Link } from "react-router-dom";
 import { randomNumber } from "../../Utilities/randomNumber";
@@ -52,8 +52,8 @@ export default function Detail() {
         setCurrentPosition({
           ...res.data.data,
           center: {
-            lat: +locationVN[index]?.lat,
-            lng: +locationVN[index]?.lng,
+            lat: + locationVN[index]?.lat,
+            lng: + locationVN[index]?.lng,
           },
         });
         console.log(res.data.data);
@@ -76,7 +76,6 @@ export default function Detail() {
     dataBook?.map((item, i) => {
       let { id, hinhAnh, name, guests, bedrooms, bathrooms, beds, price } =
         item;
-      console.log(item);
       return (
         <section key={i} className="shadow-lg rounded  duration-300">
           <Carousel effect="fade">{renderImage(hinhAnh)}</Carousel>
@@ -95,7 +94,7 @@ export default function Detail() {
               <span className="span-gray">{bathrooms} phòng tắm</span>
               <span className="span-gray bg-yellow-300  ">{price}$/đêm</span>
               <Link
-                to={`/room/${id}/${currentPosition.center?.lat}/${currentPosition.center?.lng}`}
+                to={`/room/${id}`}
                 className="span-gray text-gray-50  bg-red-500"
               >
                 Chi tiết

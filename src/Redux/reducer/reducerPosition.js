@@ -1,7 +1,7 @@
 import { DATA_POSITION } from "../constant/constantPosition";
 
 const initialState = {
-  dataPosition: null,
+  dataPosition: {},
 };
 
 const reducerPosition = (state = initialState, { type, payload }) => {

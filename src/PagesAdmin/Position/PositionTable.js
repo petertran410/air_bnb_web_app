@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { positionSer } from "../../Services/positionService";
 import { setDataPosition } from "../../Redux/actions/actionPosition";
-export default function PositionTable({ dataPosition }) {
+export default function PositionTable({ dataListPosition }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const columns = [
@@ -15,22 +15,22 @@ export default function PositionTable({ dataPosition }) {
     },
     {
       title: "Tên vị trí",
-      dataIndex: "tenViTri",
+      dataIndex: "address",
       key: "tenViTri",
     },
     {
       title: "Tỉnh thành",
-      dataIndex: "tinhThanh",
+      dataIndex: "city",
       key: "tinhThanh",
     },
     {
       title: "Quốc gia",
-      dataIndex: "quocGia",
+      dataIndex: "country",
       key: "quocGia",
     },
     {
       title: "Image",
-      dataIndex: "hinhAnh",
+      dataIndex: "photo",
       key: "hinhAnh",
       render: (url) => {
         return <img className="w-80" src={url} alt="imagePosition" />;
@@ -54,6 +54,7 @@ export default function PositionTable({ dataPosition }) {
                     .then((res) => {
                       message.success("Xóa thành công");
                       dispatch(setDataPosition());
+                      window.location.reload();
                     })
                     .catch((err) => {
                       message.error(err.response.data);
@@ -83,7 +84,7 @@ export default function PositionTable({ dataPosition }) {
   return (
     <Table
       columns={columns}
-      dataSource={dataPosition}
+      dataSource={dataListPosition}
       rowKey={(record) => record.id}
     />
   );

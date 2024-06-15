@@ -83,7 +83,7 @@ function BookRoom({ giaTien, id, khach, isStatus }) {
       return;
     }
     let newData = {
-      reserved_by_id: userInfo.id,
+      reserved_by_id: userInfo.user.data.id,
       guests: treEm + nguoiLon,
       room_id: id,
       arrival: moment(arrival).format("YYYY-MM-DD") + "T00:00:00.000Z",

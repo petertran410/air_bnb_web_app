@@ -20,7 +20,6 @@ export default function HomePage() {
       .then((res) => {
         setPositionFamous(res.data.data);
         dispatch(setLoadingOff());
-        console.log(res.data);
       })
       .catch((err) => {
         dispatch(setLoadingOff());

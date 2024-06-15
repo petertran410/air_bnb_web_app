@@ -4,9 +4,10 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { bookSer } from "../../Services/bookService";
 import { setDataBooked } from "../../Redux/actions/actionsBooked";
-export default function BookTable({ dataBooked }) {
+export default function BookTable({ dataListBook }) {
   const dispatch = useDispatch();
   let navigate = useNavigate();
+
   const columns = [
     {
       title: "ID",
@@ -15,28 +16,29 @@ export default function BookTable({ dataBooked }) {
     },
     {
       title: "Mã phòng",
-      dataIndex: "maPhong",
+      dataIndex: "room_id",
       key: "maPhong",
     },
     {
       title: "Mã người dùng",
-      dataIndex: "maNguoiDung",
+      dataIndex: "reserved_by.id",
       key: "maNguoiDung",
+      render: (text, record) => record.reserved_by.id,
     },
 
     {
       title: "Ngày đến",
-      dataIndex: "ngayDen",
+      dataIndex: "arrival",
       key: "ngayDen",
     },
     {
       title: "Ngày đi",
-      dataIndex: "ngayDi",
+      dataIndex: "departure",
       key: "ngayDi",
     },
     {
       title: "Số khách",
-      dataIndex: "soLuongKhach",
+      dataIndex: "guests",
       key: "soLuongKhach",
     },
     {
@@ -57,6 +59,7 @@ export default function BookTable({ dataBooked }) {
                     .then((res) => {
                       message.success("Xóa thành công");
                       dispatch(setDataBooked());
+                      window.location.reload();
                     })
                     .catch((err) => {
                       message.error(err.response.data);
@@ -85,7 +88,7 @@ export default function BookTable({ dataBooked }) {
   return (
     <Table
       columns={columns}
-      dataSource={dataBooked}
+      dataSource={dataListBook}
       rowKey={(record) => record.id}
     />
   );

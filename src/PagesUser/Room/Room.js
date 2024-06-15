@@ -45,7 +45,6 @@ export default function Room() {
       .getStatusRoom()
       .then((res) => {
         let data = res.data.data.filter((item) => {
-          console.log(item);
           return item.id == idRoom;
         });
         setStatus({
@@ -94,7 +93,6 @@ export default function Room() {
     roomServ
       .getDataComment()
       .then((res) => {
-        console.log(res.data.data);
         let dataFilter = res.data.data.filter(
           (item) => item.id == idRoom
         );

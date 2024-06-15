@@ -1,4 +1,3 @@
-
 import { positionSer } from "../../Services/positionService";
 import { DATA_POSITION } from "../constant/constantPosition";
 const setDataPositionSuccess = (successValue) => {
@@ -12,7 +11,7 @@ export const setDataPosition = () => {
     positionSer
       .getPosition()
       .then((res) => {
-        dispatch(setDataPositionSuccess(res.data.content));
+        dispatch(setDataPositionSuccess(res.data.data));
       })
       .catch((err) => {
         console.log(err);
@@ -25,7 +24,7 @@ export const searchPostion = (id) => {
       positionSer
         .getPosition()
         .then((res) => {
-          dispatch(setDataPositionSuccess(res.data.content));
+          dispatch(setDataPositionSuccess(res.data.data));
         })
         .catch((err) => {
           console.log(err);
@@ -34,7 +33,7 @@ export const searchPostion = (id) => {
       positionSer
         .getDataFromId(id)
         .then((res) => {
-          dispatch(setDataPositionSuccess([res.data.content]));
+          dispatch(setDataPositionSuccess([res.data.data]));
         })
         .catch((err) => {
           console.log(err);

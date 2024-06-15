@@ -13,8 +13,8 @@ export const AddPosition = () => {
     positionSer
       .postPosition(values)
       .then((res) => {
-        console.log(res.data.content);
-        dispatch(setDataPosition(res.data.content));
+        console.log(res.data.data);
+        dispatch(setDataPosition(res.data.data));
         message.success("Thêm mới thành công");
         setTimeout(() => {
           navigate("/admin/position");
@@ -35,7 +35,7 @@ export const AddPosition = () => {
         scrollToFirstError
       >
         <Form.Item
-          name="tenViTri"
+          name="address"
           label="Tên vị trí"
           rules={[
             {
@@ -48,7 +48,7 @@ export const AddPosition = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name="tinhThanh"
+          name="city"
           label="Tên chi tiết tỉnh thành"
           rules={[
             {
@@ -61,7 +61,7 @@ export const AddPosition = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name="quocGia"
+          name="country"
           label="Tên quốc gia"
           rules={[
             {
@@ -74,7 +74,7 @@ export const AddPosition = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name="hinhAnh"
+          name="photo"
           label="Hình ảnh khách sạn (URL)"
           rules={[
             {

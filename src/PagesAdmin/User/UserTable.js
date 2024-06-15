@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 export default function UserTable({ dataListUser }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const columns = [
     {
       title: "ID",
@@ -29,7 +30,7 @@ export default function UserTable({ dataListUser }) {
       dataIndex: "role",
       key: "role",
       render: (text) => {
-        if (text === "ADMIN") {
+        if (text === "Admin") {
           return <Tag color="red">ADMIN</Tag>;
         } else {
           return <Tag color="green">Khách</Tag>;
@@ -50,9 +51,9 @@ export default function UserTable({ dataListUser }) {
                   userServ
                     .deleteUser(user.id)
                     .then((res) => {
-                      console.log(res);
                       message.success("Xóa thành công");
                       dispatch(setDataListUser());
+                      window.location.reload();
                     })
                     .catch((err) => {
                       message.error(err.response.data);

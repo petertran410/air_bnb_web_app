@@ -4,52 +4,55 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { roomServ } from "../../Services/roomService";
 import { formItemLayout, tailFormItemLayout } from "../../Utilities/FormLayout";
+
 export const EditRoom = () => {
   let { id } = useParams();
   let navigate = useNavigate();
-  const [checkBox, setCheckBox] = useState(null);
   const [form] = Form.useForm();
+
+  const [dataBox, setDataBox] = useState({
+    washing_machine: "false",
+    television: "false",
+    parking: "false",
+    swimming_pool: "false",
+    air_conditioner: "false",
+    electric_iron: "false",
+    stove: "false",
+    wifi: "false",
+  });
+
   useEffect(() => {
     roomServ.getDataRoom(id).then((res) => {
-      let newData = [];
+      const roomData = res.data.data;
 
-      for (const key in res.data.content) {
-        const element = res.data.content[key];
-        if (element === true) {
-          newData.push(key);
-        }
-      }
+      // Update form fields
       form.setFieldsValue({
-        ...res.data.content,
+        ...roomData,
       });
-      setCheckBox(newData);
-    });
-  }, [id]);
 
-  const [dataBox, setDataBox] = useState([
-    "mayGiat",
-    "tivi",
-    "doXe",
-    "hoBoi",
-    "dieuHoa",
-    "banLa",
-    "banUi",
-    "bep",
-    "wifi",
-  ]);
-  const onFinishSign = (values) => {
-    let newData = [];
-    dataBox.forEach((item) => {
-      newData[item] = true;
+      // Update checkbox states
+      const updatedDataBox = {
+        washing_machine: roomData.washing_machine ? "true" : "false",
+        television: roomData.television ? "true" : "false",
+        parking: roomData.parking ? "true" : "false",
+        swimming_pool: roomData.swimming_pool ? "true" : "false",
+        air_conditioner: roomData.air_conditioner ? "true" : "false",
+        electric_iron: roomData.electric_iron ? "true" : "false",
+        stove: roomData.stove ? "true" : "false",
+        wifi: roomData.wifi ? "true" : "false",
+      };
+      setDataBox(updatedDataBox);
     });
-    let dataSend = { ...values, ...newData };
+  }, [id, form]);
+
+  const onFinishSign = (values) => {
+    let dataSend = { ...values, ...dataBox };
     roomServ
       .editRoom(id, dataSend)
       .then((res) => {
-        console.log(res.data.content);
         message.success("Update thành công");
         setTimeout(() => {
-            navigate("/admin/room");
+          navigate("/admin/room");
         }, 1500);
       })
       .catch((err) => {
@@ -57,10 +60,29 @@ export const EditRoom = () => {
         console.log(err);
       });
   };
+
   const onChange = (checkedValues) => {
-    setDataBox(checkedValues);
+    let updatedDataBox = {
+      washing_machine: "false",
+      television: "false",
+      parking: "false",
+      swimming_pool: "false",
+      air_conditioner: "false",
+      electric_iron: "false",
+      stove: "false",
+      wifi: "false",
+    };
+    checkedValues.forEach((item) => {
+      updatedDataBox[item] = "true";
+    });
+    setDataBox(updatedDataBox);
+    console.log(updatedDataBox);
   };
+
   const renderSign = () => {
+    const checkedValues = Object.keys(dataBox).filter(
+      (key) => dataBox[key] === "true"
+    );
     return (
       <Form
         {...formItemLayout}
@@ -69,72 +91,69 @@ export const EditRoom = () => {
         onFinish={onFinishSign}
         scrollToFirstError
       >
-        <Form.Item name="tenPhong" label="Tên phòng">
+        <Form.Item name="name" label="Tên phòng">
           <Input />
         </Form.Item>
-        <Form.Item name="khach" label="Số khách">
+        <Form.Item name="guests" label="Số khách">
           <Input type={"number"} />
         </Form.Item>
-        <Form.Item name="phongNgu" label="Số phòng ngủ">
+        <Form.Item name="bedrooms" label="Số phòng ngủ">
           <Input type={"number"} />
         </Form.Item>
-        <Form.Item name="giuong" label="Số giường">
+        <Form.Item name="beds" label="Số giường">
           <Input type={"number"} />
         </Form.Item>
-        <Form.Item name="phongTam" label="Phòng tắm">
+        <Form.Item name="bathrooms" label="Phòng tắm">
           <Input type={"number"} />
         </Form.Item>
-        <Form.Item name="giaTien" label="Giá tiền 1 đêm">
+        <Form.Item name="price" label="Giá tiền 1 đêm">
           <Input type={"number"} />
         </Form.Item>
-        <Form.Item name="maViTri" label="Mã vị trí">
+        <Form.Item name="location_id" label="Mã vị trí">
           <Input type={"number"} />
         </Form.Item>
-        <Form.Item name="hinhAnh" label="Hình ảnh khách sạn (URL)">
+        <Form.Item name="photo" label="Hình ảnh khách sạn (URL)">
           <Input />
         </Form.Item>
-        <Form.Item name="moTa" label="Mô tả về phòng thuê">
+        <Form.Item name="description" label="Mô tả về phòng thuê">
           <Input.TextArea rows={4} />
         </Form.Item>
-        {checkBox && (
-          <Checkbox.Group
-            defaultValue={checkBox}
-            style={{
-              width: "100%",
-            }}
-            onChange={onChange}
-          >
-            <Row>
-              <Col span={8}>
-                <Checkbox value="mayGiat">Máy giặt</Checkbox>
-              </Col>
-              <Col span={8}>
-                <Checkbox value="banLa">Bàn là</Checkbox>
-              </Col>
-              <Col span={8}>
-                <Checkbox value="banUi">Bàn ủi</Checkbox>
-              </Col>
-              <Col span={8}>
-                <Checkbox value="tivi">Ti vi</Checkbox>
-              </Col>
-              <Col span={8}>
-                <Checkbox value="dieuHoa">Điều hòa</Checkbox>
-              </Col>
-              <Col span={8}>
-                <Checkbox value="bep">Bếp</Checkbox>
-              </Col>
-              <Col span={8}>
-                <Checkbox value="doXe">Bãi đỗ xe</Checkbox>
-              </Col>
-              <Col span={8}>
-                <Checkbox value="hoBoi">Hồ bơi</Checkbox>
-              </Col>
-              <Col span={8}>
-                <Checkbox value="wifi">Wi fi</Checkbox>
-              </Col>
-            </Row>
-          </Checkbox.Group>
-        )}
+
+        <Checkbox.Group
+          style={{
+            width: "100%",
+          }}
+          onChange={onChange}
+          value={checkedValues}
+        >
+          <Row>
+            <Col span={8}>
+              <Checkbox value="washing_machine">Máy Giặt</Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox value="electric_iron">Bàn Ủi</Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox value="television">Ti vi</Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox value="air_conditioner">Máy Lạnh</Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox value="stove">Bếp</Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox value="parking">Đỗ Xe</Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox value="swimming_pool">Hồ Bơi</Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox value="wifi">Wi fi</Checkbox>
+            </Col>
+          </Row>
+        </Checkbox.Group>
+
         <Form.Item {...tailFormItemLayout}>
           <Button className="mt-5" type="primary" htmlType="submit">
             Cập nhật

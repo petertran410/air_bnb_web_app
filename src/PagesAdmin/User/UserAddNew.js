@@ -56,6 +56,23 @@ export const UserAddNew = () => {
       });
   };
 
+  const validateBirthday = (rule, value, callback) => {
+    // Kiểm tra nếu giá trị rỗng thì bỏ qua
+    if (!value) {
+      callback("Vui lòng nhập ngày sinh");
+      return;
+    }
+
+    // Kiểm tra định dạng YYYY-MM-DDTHH:mm:ss.sssZ
+    if (
+      !/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.(\d{3})Z$/.test(value)
+    ) {
+      callback("Ngày sinh không đúng định dạng YYYY-MM-DDTHH:mm:ss.sssZ");
+    } else {
+      callback();
+    }
+  };
+
   const renderSign = () => {
     return (
       <Form
@@ -96,29 +113,6 @@ export const UserAddNew = () => {
           <Input.Password />
         </Form.Item>
 
-        {/* <Form.Item
-          name="confirm"
-          label="Confirm"
-          dependencies={["password"]}
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: "Xin nhập lại pass",
-            },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue("password") === value) {
-                  return Promise.resolve();
-                }
-
-                return Promise.reject(new Error("Pass nhập lại không giống"));
-              },
-            }),
-          ]}
-        >
-          <Input.Password />
-        </Form.Item> */}
         <Form.Item
           name="birthday"
           label="Ngày sinh"
@@ -128,9 +122,12 @@ export const UserAddNew = () => {
               message: "Không bỏ trống",
               whitespace: true,
             },
+            {
+              validator: validateBirthday,
+            },
           ]}
         >
-          <Input type={Date} />
+          <Input placeholder="2002-04-10T00:00:00.000Z" />
         </Form.Item>
         <Form.Item
           rules={[
@@ -196,7 +193,7 @@ export const UserAddNew = () => {
           rules={[
             {
               validator: (_, value) =>
-                value
+                valueF
                   ? Promise.resolve()
                   : Promise.reject(new Error("Xin chấp nhận điều khoản")),
             },

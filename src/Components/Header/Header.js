@@ -18,7 +18,6 @@ export default function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   let { user: userInfo } = useSelector((state) => state.userReducer);
-  console.log(userInfo);
   const navigate = useNavigate();
   const [dataSearch, setDataSearch] = useState("");
   const [visible, setVisible] = useState(true);
@@ -33,7 +32,6 @@ export default function Header() {
           };
         });
         setDataSearch(newData);
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -70,7 +68,7 @@ export default function Header() {
         {
           label:
             userInfo &&
-            (userInfo.role === "ADMIN" ? (
+            (userInfo.user.data.role === "Admin" ? (
               <Link to={"/admin"}>
                 <span className="font-semibold text-blue-500 hover:text-blue-700 duration-300">
                   Admin
@@ -79,7 +77,7 @@ export default function Header() {
             ) : (
               <Link to={"/"}>
                 <span className="font-semibold text-blue-500 hover:text-blue-700 duration-300">
-                  Xin chào {userInfo.name}
+                  Xin chào {userInfo.user.data.name}
                 </span>
               </Link>
             )),
