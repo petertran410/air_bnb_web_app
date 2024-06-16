@@ -89,7 +89,7 @@ Knowledge: HTML, CSS, JavaScript, UI design, Thesis report, Git and Github Usage
 
 ## UML Class Diagram <a name="uml"></a> 📄
 
-![image](./screenshot/Class_Diagram_Tetris.png)
+![image](https://github.com/petertran410/air_bnb_web_app/blob/main/public/imgs/class-diagram.png?raw=true)
 
 ## Demo <a name="demo"></a> 🤖
 
