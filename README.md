@@ -97,53 +97,29 @@ Knowledge: HTML, CSS, JavaScript, UI design, Thesis report, Git and Github Usage
 
 #### Start Screen
 
-![image](./screenshot/game/startscreen.png)
+![image](https://github.com/petertran410/air_bnb_web_app/blob/main/public/imgs/demo-1.png?raw=true)
 
-### How to play 🎮
+#### Sign Up Screen
 
-#### Desktop 🖥️
+![image](https://github.com/petertran410/air_bnb_web_app/blob/main/public/imgs/demo-2.png?raw=true)
 
-- Use the ⬅️|➡️ to move left and right
-- Use the ⬆️ to rotate 90° clockwise
-- Use Space to drop down
-- Use C to hold the Piece
-- Use U to undo
-- Use R to restart
+#### Main Page Screen
 
-#### Mobile 📱
+![image](https://github.com/petertran410/air_bnb_web_app/blob/main/public/imgs/demo-3.png?raw=true)
 
-- Swipe Left and Right to move
-- Swipe up or tap to rotate
-- Swipe down to drop piece
-- Press ⏸️ button to interact
-- Press 🎁 button to hold
-- Press 🔄 button to undo
-- Press 🔇 to toggle mute
 
-## PowerPoint and Report <a name="powerPoint"></a> 📖
-
-### PowerPoint
-
-Support: Google slides
-![image](./screenshot/Tetris_ppt.jpg)
-
-Direct: [Link](https://docs.google.com/presentation/d/1NSvAn6voLTWPU3bcdAyV4bVFJXAI_HLM9rIiVeL4j0k/edit?usp=sharing)
-
-### Report
-
-Support: Google docs
-
-Direct: [Link](https://docs.google.com/document/d/1TFwiAUaH60dtllLl4o73U8S-MblfCmTzYT6-PXLCqNY/edit?usp=sharing)
 
 ## Installation <a name="installation"></a>
 
-1. Step 1: Access to https://github.com/naulkun7/Tetris-Game
+1. Step 1: Access to https://github.com/petertran410/air_bnb_web_app
 
 - Download and unzip the file
-- Clone following repository to your local [Tetris-Game_repository](https://github.com/naulkun7/Tetris-Game.git)
+- OR
+- Clone following repository to your local [AIR BnB REPO](https://github.com/petertran410/air_bnb_web_app.git)
   - VSCode: Copy the repository URL --> Open VSCode --> Ctrl + Shift + P --> Type "gitcl" --> Choose "Git Clone" and paste the URL in
-  - WebStorm: Copy the repository URL --> Open WebStorm --> Choose "Get from VCS" --> Paste the URL on your clipboard to "URL" field --> Press Enter or Clone
 
-2. Step 2: Choose index.html file in source code --> Right click and click "Open with Live Server"
-3. Step 3: Run or modify it as you want
+2. Step 2: Choose package.json file in source code --> Right click and click "Open With Terminal" and remember you have to have Node.js
+3. Step 3: Click to terminal and run "yarn install" to download neccessfully packages
+4. Step 4: After installing packages, run "yarn start" to start the web
+5. Step 5: Run or modify it as you want
 
