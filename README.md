@@ -33,7 +33,7 @@ Click here to get database APIs Back-end: --> <a href="https://github.com/petert
 | Index | Role   | Person In Charge | Contribution |
 | :---- | :----- | :--------------: | :----------: |
 | 1     | Leader |    Ngọc Nhân     |     50%      |
-| 2     | Member |    Anh Tú        |     50%%     |
+| 2     | Member |    Anh Tú        |     50%      |
 
 | Name        | Tasks                                                                                   |
 | :---------- | :-----------------------------------------------------------------------------          |
