@@ -2,7 +2,9 @@
 
 # Air Bnb Project
 
-Click here and enjoy the web --> <a href="https://tetris-game-zeta.vercel.app/" target="_blank">Air Bnb</a>
+Click here and enjoy the web --> <a href="https://tranngocnhan-airbnb.netlify.app/" target="_blank">Air Bnb</a>
+
+Click here to get database APIs Back-end: --> <a href="https://github.com/petertran410/air_bnb_be_web_app" target="_blank">APIs</a>
 
 ## Web Application Development (Semester 2_2023-2024)
 
@@ -35,11 +37,11 @@ Click here and enjoy the web --> <a href="https://tetris-game-zeta.vercel.app/" 
 | 1     | Leader |    Ngọc Nhân     |     50%      |
 | 2     | Member |    Anh Tú        |     50%%     |
 
-| Name        | Tasks                                                                          |
-| :---------- | :----------------------------------------------------------------------------- |
+| Name        | Tasks                                                                                   |
+| :---------- | :-----------------------------------------------------------------------------          |
 | Ngọc Nhân   | Overall Framework, Room List, Detail Room, Booking Room, Service, Connect APIs Back-end |
 | Anh Tú      | Persional Information, Register Login, Admin Page, Main Page                            |
-| All members | Report, PowerPoint, Front-end                                                  |
+| All members | Report, PowerPoint, Front-end                                                           |
 
 ### Environment :computer:
 
@@ -89,34 +91,13 @@ Knowledge: HTML, CSS, JavaScript, UI design, Thesis report, Git and Github Usage
 
 ## UML Class Diagram <a name="uml"></a> 📄
 
-![image](https://github.com/petertran410/air_bnb_web_app/blob/main/public/imgs/class-diagram.png?raw=true)
+![image](https://github.com/petertran410/air_bnb_web_app/blob/main/public/imgs/ClassDiagram.png?raw=true)
 
 ## Demo <a name="demo"></a> 🤖
 
 #### Start Screen
 
 ![image](./screenshot/game/startscreen.png)
-
-#### Set Difficulty
-
-![image](./screenshot/game/difficult.png)
-
-#### Play Screen
-
-![image](./screenshot/game/playing.png)
-![image](./screenshot/game/playing2.png)
-
-#### Pause Screen
-
-![image](./screenshot/game/pause.png)
-
-#### End Screen
-
-![image](./screenshot/game/gameover.png)
-
-#### Mobile
-
-![image](./screenshot/game/mobile.jpg)
 
 ### How to play 🎮
 
