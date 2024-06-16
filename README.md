@@ -15,9 +15,7 @@ Click here to get database APIs Back-end: --> <a href="https://github.com/petert
 3. [Challenges](#challenges)
 4. [UML Class Diagram](#uml)
 5. [Demo](#demo)
-6. [PowerPoint](#powerPoint)
-7. [Installation](#installation)
-8. [References](#references)
+6. [Installation](#installation)
 
 ## Introduction <a name="introduction"></a> :smile:
 
