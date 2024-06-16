@@ -1,7 +1,7 @@
 import axios from "axios";
 import { localServ } from "./localService";
 
-export const BASE_URL = "http://localhost:8080";
+export const BASE_URL = "http://128.199.94.237:8080";
 
 export let https = axios.create({
   baseURL: BASE_URL,
