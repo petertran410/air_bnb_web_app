@@ -2,7 +2,7 @@
 
 # Air Bnb Project
 
-Click here and enjoy the web --> <a href="https://tranngocnhan-airbnb.netlify.app/" target="_blank">Air Bnb</a>
+Click here and enjoy the web --> <a href="https://ngocnhan-airbnb.netlify.app/" target="_blank">Air Bnb</a>
 
 Click here to get database APIs Back-end: --> <a href="https://github.com/petertran410/air_bnb_be_web_app" target="_blank">APIs</a>
 
