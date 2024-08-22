@@ -6,8 +6,6 @@ Click here and enjoy the web --> <a href="https://ngocnhan-airbnb.netlify.app/" 
 
 Click here to get database APIs Back-end: --> <a href="https://github.com/petertran410/air_bnb_be_web_app" target="_blank">APIs</a>
 
-## Web Application Development (Semester 2_2023-2024)
-
 # Table of contents :round_pushpin:
 
 1. [Introduction](#introduction)
